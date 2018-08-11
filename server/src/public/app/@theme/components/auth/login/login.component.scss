@@ -1,0 +1,54 @@
+@import '../../../styles/themes';
+
+@include nb-install-component() {
+
+
+    .header-container {
+      top: 0;
+      padding: 0 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: nb-theme(color-bg);
+      .header-logo-holder {
+        padding: 0.5rem 1rem;
+        img {
+          height: 2rem;
+        }
+      }
+
+    }
+    .form-control {
+      &:disabled {
+        background: nb-theme(form-control-border-color);
+      }
+    }
+    .fixed {
+      position: fixed;
+      left: 0;
+      right: 0;
+    }
+    .logo-holder {
+      display: flex;
+      justify-content: center;
+      margin: 1rem 0;
+      img {
+        height: 2rem;
+      }
+    }
+
+    .no-padding {
+      padding: 0;
+    }
+
+    .forgot-holder {
+      justify-content: flex-end;
+      margin: 0;
+
+    }
+
+    .remember-me-holder {
+      margin: 0 0 1rem 0;
+    }
+
+}

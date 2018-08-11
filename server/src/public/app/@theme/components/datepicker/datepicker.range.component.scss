@@ -1,0 +1,33 @@
+@import '../../styles/themes';
+
+@include nb-install-component() {
+  .custom-day {
+    text-align: center;
+    /*padding: 0.185rem 0.25rem;*/
+    padding: 0.50rem;
+    display: inline-block;
+    height: 2rem;
+    width: 2rem;
+  }
+
+  @include nb-for-theme(default) {
+    .custom-day {
+      color: #222222;
+      &.outside {
+        color: #ccc;
+      }
+      &.focused {
+        background-color: rgba(3,61,168,0.34)
+      }
+      &.range {
+        background-color: rgba(3,61,168,0.34)
+      }
+      &:hover {
+        background-color: rgba(3,61,168,0.34)
+      }
+      &.faded {
+        background-color: rgba(3,61,168,0.34)
+      }
+    }
+  }
+}

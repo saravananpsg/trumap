@@ -1,0 +1,234 @@
+// themes - our custom or/and out of the box themes
+@import 'themes';
+
+// framework component themes (styles tied to theme variables)
+@import '~@nebular/theme/styles/globals';
+@import '~@nebular/auth/styles/all';
+
+// global app font size
+@import './font-size';
+
+// loading progress bar theme
+@import './pace.theme';
+
+@import './bootstrap-rtl';
+
+// install the framework and custom global styles
+@include nb-install() {
+
+  // framework global styles
+  @include nb-theme-global();
+  @include nb-auth-global();
+
+  // loading progress bar
+  @include ngx-pace-theme();
+
+  .custom-control .custom-control-indicator {
+    border-radius: 50%; // TODO: quickfix for https://github.com/akveo/nebular/issues/275
+  }
+  @include bootstrap-rtl();
+
+  ngb-datepicker {
+    /*ngb-datepicker-navigation {
+      pointer-events: none;
+    }*/
+    outline: none;
+    .ngb-dp-weekday {
+      font-size: 0.6rem !important;
+      font-style: normal !important;
+    }
+    .ngb-dp-day {
+      font-size: 0.6rem !important;
+    }
+    .ngb-dp-arrow {
+      .btn {
+        color: black;
+      }
+    }
+    .ngb-dp-header {
+      .custom-select {
+        border-radius: 0;
+      }
+    }
+  }
+
+  @include nb-for-theme(default) {
+    ngb-datepicker {
+      .ngb-dp-weekday {
+        color: #222222;
+      }
+    }
+  }
+  @include nb-for-theme(cosmic) {
+    ngb-datepicker {
+      background-color: nb-theme(color-bg) !important;
+      .ngb-dp-arrow {
+        .btn {
+          color: nb-theme(color-fg);
+        }
+      }
+      .ngb-dp-header {
+        background-color: nb-theme(color-bg) !important;
+        color: nb-theme(color-fg);
+        .custom-select {
+          background-color: nb-theme(color-fg) !important;
+          color: nb-theme(color-bg);
+          border-color: nb-theme(color-fg);
+        }
+      }
+      .ngb-dp-week {
+        background-color: nb-theme(color-bg) !important;
+        color: nb-theme(color-fg);
+
+        .ngb-dp-weekday {
+          color: nb-theme(color-fg);
+        }
+
+      }
+
+    }
+  }
+
+  .ng2-tag-input {
+    border-bottom: 0 !important;
+    tag {
+      font-size: 0.9rem !important;
+      padding: 0 0.45rem;
+    }
+  }
+
+  .disabled-item {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+  .modal-dialog {
+    top: 25% !important;
+  }
+
+  .action {
+    cursor: pointer;
+  }
+
+  .alertify-logs {
+    z-index: 9999 !important;
+  }
+
+  .icon {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .tooltip {
+    min-width: 10rem;
+  }
+  ngx-header {
+    align-items: center;
+  }
+
+  @include nb-for-theme(default) {
+    a {
+      color: nb-theme(color-fg-text);
+      &:hover {
+        color: nb-theme(color-fg-text);
+      }
+    }
+  }
+  .arrow-up {
+    width: 0;
+    height: 0;
+    border-left: 0.5rem solid transparent;
+    border-right: 0.5rem solid transparent;
+    border-bottom: 0.8rem solid #7ED321;
+  }
+
+  .arrow-down {
+    width: 0;
+    height: 0;
+    border-left: 0.5rem solid transparent;
+    border-right: 0.5rem solid transparent;
+    border-top: 0.8rem solid red;
+  }
+
+  .flex {
+    display: flex;
+    &.flex-align-center {
+      align-items: center;
+    }
+    &.flex-align-end {
+      align-items: flex-end;
+    }
+    &.flex-justify-space-between {
+      justify-content: space-between;
+    }
+    &.flex-justify-end {
+      justify-content: flex-end;
+    }
+    &.flex-justify-center {
+      justify-content: center;
+    }
+    &.flex-column {
+      flex-direction: column;
+    }
+    &.flex-wrap {
+      flex-wrap: wrap;
+    }
+    &.flex-10 {
+      flex: 0 0 10%;
+    }
+    &.flex-90 {
+      flex: 0 0 90% !important;
+    }
+
+    &.flex-width-50 {
+      width: 50%;
+      flex: 0 0 50%;
+    }
+    &.flex-width-30 {
+      width: 30%;
+      flex: 0 0 30%;
+    }
+  }
+  .flex-child {
+    &.flex-width-50 {
+      width: 50%;
+      flex: 0 0 50%;
+    }
+    &.flex-width-30 {
+      width: 30%;
+      flex: 0 0 30%;
+    }
+  }
+
+
+  nb-auth {
+    nb-card {
+      position: absolute;
+      left: 4rem;
+      right: 4rem;
+      bottom: 2rem;
+      height: 80vh;
+    }
+  }
+
+  .data-loader-container {
+    position: relative;
+    .data-loader, .no-data {
+      position: absolute;
+      top: 40%;
+      left: 45%;
+      z-index: 1;
+      &.icon {
+        color: #000;
+      }
+    }
+    .no-data {
+      text-align: center;
+      left: 0;
+      right: 0;
+    }
+  }
+
+
+
+
+};
