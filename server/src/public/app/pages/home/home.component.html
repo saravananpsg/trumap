@@ -1,0 +1,42 @@
+<div class="page-home">
+  <agm-map [latitude]="40.5" [longitude]="-80" [zoom]="12">
+      <agm-marker *ngFor="let point of points | async" [latitude]="point.pos.geopoint.latitude" [longitude]="point.pos.geopoint.longitude">
+          <agm-info-window>
+
+
+              {{ point.queryMetadata | json }}
+
+          </agm-info-window>
+      </agm-marker>
+
+
+      <agm-circle [latitude]="40.5" [longitude]="-80" [radius]="(radius | async) * 1000"></agm-circle>
+
+  </agm-map>
+
+
+  <!--<div class="tools">
+      <h4>Query within Radius</h4>
+      <pre>collection.within(center, radius, field)</pre>
+      <p> <a routerLink="/pages/rt">DEMO 2 - Realtime Query</a> </p>
+      <h6>Current Radius: {{ radius | async }}</h6>
+      <h6>Documents Found: {{ (points | async)?.length }}</h6>
+
+      <button class="btn btn-secondary btn-sm"
+        [disabled]="(radius | async) === 0.25" (click)="update(0.25)">Query to 0.25km</button>
+      <button class="btn btn-secondary btn-sm"
+        [disabled]="(radius | async) === 5" (click)="update(5)">Query to 5km</button>
+      <button class="btn btn-secondary btn-sm"
+        [disabled]="(radius | async) === 10" (click)="update(10)">Query to 10km</button>
+      <button class="btn btn-secondary btn-sm"
+        [disabled]="(radius | async) === 25" (click)="update(25)">Query to 25km</button>
+      <button class="btn btn-secondary btn-sm"
+        [disabled]="(radius | async) === 1500" (click)="update(1500)">Query to 1500km</button>
+  </div>-->
+  <div class="top-toolbar">
+    <ngx-toolbar></ngx-toolbar>
+  </div>
+  <div class="footer-toolbar">
+    <ngx-listing  #listings></ngx-listing>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<div class="listing-component">
+  <div class="listing-holder flex">
+    <div class="listing-search-results flex flex-column
+      flex-align-center flex-justify-center">
+      <div class="matches">
+        <h5>{{listings[0]?.totalcount}} matches found.</h5>
+      </div>
+      <button class="btn btn-outline-info btn-sm">New Search</button>
+    </div>
+    <virtual-scroll
+      [horizontal]="true"
+      [items]="listings"
+      (update)="scrollItems = $event"
+      (change)="indices = $event"
+      (end)="fetchMore($event)">
+
+      <div  *ngFor="let listing of scrollItems; let i = index" class="inline">
+        <div class="listing-tile">
+          <div class="listing-header  flex flex-align-center">
+            <span class="text-ellipsis">{{listing?.project_name}}</span>
+          </div>
+          <img src="https://picsum.photos/300/300/?random={{listing?.index}}"/>
+          <!-- <div [defaultImage]="'https://picsum.photos/300/300/?random=100'"
+            [lazyLoad]="listing.url" class="listing-image">
+          </div>-->
+          <div class="listing-footer">
+            <div class="left">
+              <div class="listing-index">
+                {{listing?.index}}
+              </div>
+            </div>
+            <div class="right">
+              <div class="listing-status">
+                {{listing?.status || 'VISITED'}}
+              </div>
+              <div class="liked" *ngIf="listing.liked">
+                <i class="fa fa-heart"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div *ngIf="loading" class="loader">Loading...</div>-->
+    </virtual-scroll>
+
+  </div>
+</div>

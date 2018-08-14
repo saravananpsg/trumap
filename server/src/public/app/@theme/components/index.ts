@@ -7,3 +7,7 @@ export * from './auth/login/login.component';
 export * from './auth/request-password/request.password.component';
 export * from './auth/reset-password/reset.password.component';
 export * from './modal/download.modal.component';
+export * from './toolbar/toolbar.component';
+export * from './listing/listing.component';
+export * from './chat/chat.component';
+export * from './chat/chat.message/chat.message.component';

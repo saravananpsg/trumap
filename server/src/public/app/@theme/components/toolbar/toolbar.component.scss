@@ -1,0 +1,80 @@
+@import '../../styles/themes';
+$dropdownTitleColor:#4DB6EA;
+@include nb-install-component() {
+  .toolbar-container {
+    .dropdown-menu {
+      padding: 0;
+    }
+    .zoom-bar {
+      position: absolute;
+      button {
+        padding: 1rem 0.75rem;
+      }
+      ::ng-deep .tooltip {
+        .arrow {
+          &::before {
+            border-top-color: #fff;
+          }
+        }
+        .tooltip-inner {
+          background-color: #fff;
+          color: rgba(0, 0, 0, 0.54);
+          text-transform: uppercase;
+        }
+      }
+    }
+    .presets-bar {
+      border: solid 2px #fff;
+      .type-dropdown {
+        .btn.btn-secondary.top-button  {
+          display: flex;
+          justify-content: flex-start;
+          i {
+            position: absolute;
+            right: 8px;
+          }
+        }
+      }
+      button {
+        border: 0;
+        border-radius: 0;
+      }
+    }
+
+  }
+  @include nb-for-theme(default) {
+
+      .type-dropdown {
+        position: relative;
+        .btn.btn-secondary.top-button  {
+          width: 100%;
+          color: $dropdownTitleColor;
+
+        }
+
+      }
+      button {
+        background-color: #f8f8f8;
+        border-color: #fff !important;
+        .fa {
+          color: #898783;
+        }
+        &.selected {
+          background-color: #ededed;
+          .fa {
+            color: #4c4843;
+          }
+        }
+      }
+      .dropdown .btn-secondary + .dropdown-menu,
+      .dropdown .btn-outline-secondary + .dropdown-menu,
+      .dropup .btn-secondary + .dropdown-menu,
+      .dropup .btn-outline-secondary + .dropdown-menu {
+        background-color: #fff;
+        border-top-color: #fff;
+      }
+      .dropdown .dropdown-menu, .dropup .dropdown-menu {
+        color: #241D52;
+      }
+  }
+}
