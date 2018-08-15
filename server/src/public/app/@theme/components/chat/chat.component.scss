@@ -44,5 +44,22 @@
       }
 
     }
+    .input-group-prepend {
+      button {
+        display: flex;
+        width: 60px;
+        align-items: center;
+        img {
+          height: 19px;
+          width: 15px;
+          position: absolute;
+          left: 10px
+        }
+        &::after {
+          position: absolute;
+          right: 10px;
+        }
+      }
+    }
   }
 }

@@ -9,6 +9,7 @@ import { UiScrollModule } from 'ngx-ui-scroll';
 
 import { AgmCoreModule } from '@agm/core';
 import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
+import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 
 const PAGES_COMPONENTS = [
   PagesComponent,
@@ -25,6 +26,9 @@ const PAGES_COMPONENTS = [
     }),
     AgmSnazzyInfoWindowModule,
     UiScrollModule,
+    NgxMapboxGLModule.withConfig({
+     accessToken: 'pk.eyJ1IjoiZ2FsdmludyIsImEiOiJjaXB2aGNhNHIwdmdwZmxtMnkxbmxjZm9mIn0.kftFOX2a7YKK4tS0Qbc9yw',
+   })
   ],
   declarations: [
     ...PAGES_COMPONENTS,

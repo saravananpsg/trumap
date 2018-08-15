@@ -6,10 +6,10 @@
     flex-justify-center">
     <div class="btn-group zoom-bar">
       <button type="button" class="btn btn-secondary"
-        [ngClass]="{'selected': selectedButton === zoomAction.name}"
+        [ngClass]="{'selected': selectedZoomAction === zoomAction.name}"
         *ngFor="let zoomAction of zoomActions"
-
-        (click)="selectedButton = zoomAction.name"
+        [disabled]="zoomAction.isDisabled"
+        (click)="selectedZoomAction = zoomAction.name"
       >
         <i class="fa fa-{{zoomAction?.icon}}"  placement="top" ngbTooltip="{{zoomAction.tooltip}}"></i>
       </button>
@@ -22,7 +22,7 @@
           <button class="btn btn-secondary top-button" type="button"
             (click)="typeDropdownSelected = !typeDropdownSelected">
             International Student
-            <i class="fa fa-server"></i>
+            <i class="fa fa-filter"></i>
           </button>
 
         </div>

@@ -14,30 +14,36 @@ export class ToolbarComponent {
   },{
     name: 'property',
     icon: 'circle',
-    tooltip: 'Poperty'
+    tooltip: 'Poperty',
+    isDisabled: false
   },{
     name: 'street',
     icon: 'circle',
-    tooltip: 'Street'
+    tooltip: 'Street',
+    isDisabled: false
   },
   {
     name: 'neighbourhood',
     icon: 'circle',
-    tooltip: 'Neighbourhood'
+    tooltip: 'Neighbourhood',
+    isDisabled: false
   },{
-    name: 'street1',
+    name: 'district',
     icon: 'circle',
-    tooltip: 'Street1'
+    tooltip: 'District',
+    isDisabled: false
   },
   {
-    name: 'street2',
+    name: 'region',
     icon: 'circle',
-    tooltip: 'Street2'
+    tooltip: 'Region',
+    isDisabled: false
 
   },{
-    name: 'street3',
+    name: 'country',
     icon: 'circle',
-    tooltip: 'Street3'
+    tooltip: 'Country',
+    isDisabled: true
   },
   {
     name: 'minus',
@@ -58,6 +64,8 @@ export class ToolbarComponent {
     {
       name: 'Permanent Residents'
     }
-  ]
+  ];
+
+  protected selectedZoomAction = 'street';
 
 }

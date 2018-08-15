@@ -1,4 +1,4 @@
-<agm-map [latitude]="34" [longitude]="-113" [zoom]="8">
+<!-- <agm-map [latitude]="34" [longitude]="-113" [zoom]="8">
     <agm-marker [iconUrl]="icon(point.id)" *ngFor="let point of points | async; trackBy: trackByFn" [latitude]="point.pos.geopoint.latitude" [longitude]="point.pos.geopoint.longitude">
         <agm-info-window>
 
@@ -11,7 +11,13 @@
 
     <agm-circle [latitude]="34" [longitude]="-113" [radius]="200000"></agm-circle>
 
-</agm-map>
+</agm-map>-->
+<mgl-map
+  [style]="'mapbox://styles/galvinw/cjki32wem35cb2ss2vhqr1tu1'"
+  [zoom]="10.9"
+  [center]="[103.837126, 1.352105]"
+>
+</mgl-map>
 
 
 <div class="tools">

@@ -1,5 +1,5 @@
 <div class="page-home">
-  <agm-map [latitude]="40.5" [longitude]="-80" [zoom]="12">
+  <!-- <agm-map [latitude]="40.5" [longitude]="-80" [zoom]="12">
       <agm-marker *ngFor="let point of points | async" [latitude]="point.pos.geopoint.latitude" [longitude]="point.pos.geopoint.longitude">
           <agm-info-window>
 
@@ -12,7 +12,13 @@
 
       <agm-circle [latitude]="40.5" [longitude]="-80" [radius]="(radius | async) * 1000"></agm-circle>
 
-  </agm-map>
+  </agm-map>-->
+  <mgl-map
+    [style]="'mapbox://styles/galvinw/cjki32wem35cb2ss2vhqr1tu1'"
+    [zoom]="10.9"
+    [center]="[103.837126, 1.352105]"
+  >
+  </mgl-map>
 
 
   <!--<div class="tools">

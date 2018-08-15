@@ -47,7 +47,7 @@ export class ListingComponent implements AfterViewInit {
     //return
     this.listingsService.uraListings(filter).subscribe(data => {
           const listingsData: any = data;
-          let newIndex = filter.offset;
+          let newIndex = filter.offset + 1;
 
           listingsData.forEach((listingData) => {
             listingData.index = newIndex;
