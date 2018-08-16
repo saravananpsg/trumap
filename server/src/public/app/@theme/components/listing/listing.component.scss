@@ -1,0 +1,104 @@
+@import '../../styles/themes';
+@include nb-install-component() {
+  .listing-holder {
+    height: 136px;
+    .listing-search-results {
+      width: 400px;
+      button {
+        margin: 0.5rem 0;
+      }
+    }
+
+    virtual-scroll {
+      width: calc(100% - 400px);
+      height: 136px;
+      overflow-y: hidden !important;
+      &:hover {
+        &::-webkit-scrollbar {
+          display: block;
+          height: 6px;
+          width: 6px;
+        }
+      }
+      &::-webkit-scrollbar {
+        display: none;
+        height: 0px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background:  #555;
+      }
+      .listing-tile {
+        display: inline-block;
+        width: 242px;
+        height: 130px;
+        position: relative;
+        .listing-header {
+          padding: 0 10px;
+          height: 35px;
+          position: absolute;
+          width: 100%;
+          background-color: rgba(255,255,255,0.56);
+          color: #241D52;
+          span {
+            display: inline-block;
+          }
+        }
+        img {
+          width: 100%;
+          height: 100%;
+        }
+        .listing-image {
+          width: 100%;
+          height: 100%;
+          background-size: cover;
+        }
+        .listing-footer {
+          position: absolute;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          bottom: 0;
+          .left {
+            flex: 0 0 45%;
+            .listing-index {
+              height: 40px;
+              width: 40px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              background-color: #fff;
+              text-align: center;
+              color: #4A4A4A;
+              border: solid 2px #4A4A4A;
+            }
+          }
+          .right {
+            flex: 0 0 55%;
+            display: flex;
+            align-items: center;
+            padding: 0 10px 0 0;
+            justify-content: space-between;
+            .listing-status {
+              height: 23px;
+              padding: 5px 10px;
+              text-align: center;
+              text-transform: uppercase;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background-color: #9B9B9B;
+              color: #fff;
+              font-weight: 500;
+              border-radius: 2px;
+            }
+            .liked {
+              color: #000;
+            }
+          }
+        }
+      }
+    }
+
+  }
+}

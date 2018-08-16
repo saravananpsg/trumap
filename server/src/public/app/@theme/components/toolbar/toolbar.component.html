@@ -1,0 +1,70 @@
+<div class="row toolbar-container">
+  <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 chat-bar">
+    <ngx-chat-component></ngx-chat-component>
+  </div>
+  <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12 flex flex-alig-center
+    flex-justify-center">
+    <div class="btn-group zoom-bar">
+      <button type="button" class="btn btn-secondary"
+        [ngClass]="{'selected': selectedZoomAction === zoomAction.name}"
+        *ngFor="let zoomAction of zoomActions"
+        [disabled]="zoomAction.isDisabled"
+        (click)="selectedZoomAction = zoomAction.name"
+      >
+        <i class="fa fa-{{zoomAction?.icon}}"  placement="top" ngbTooltip="{{zoomAction.tooltip}}"></i>
+      </button>
+    </div>
+  </div>
+  <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+    <div class="presets-bar">
+      <div class="type-dropdown">
+        <div class="top-bottom-container">
+          <button class="btn btn-secondary top-button" type="button"
+            (click)="typeDropdownSelected = !typeDropdownSelected">
+            International Student
+            <i class="fa fa-filter"></i>
+          </button>
+
+        </div>
+
+        <div class="type-dropdown-container" *ngIf="typeDropdownSelected">
+          <div class="dropdown" ngbDropdown>
+            <button class="btn btn-secondary" type="button" ngbDropdownToggle>
+              Presets for Buy
+            </button>
+            <ul class="dropdown-menu" ngbDropdownMenu>
+              <li class="dropdown-item" *ngFor="let preset of presets">
+                {{preset.name}}
+              </li>
+            </ul>
+          </div>
+          <div class="dropdown" ngbDropdown>
+            <button class="btn btn-secondary" type="button" ngbDropdownToggle>
+              Presets for Rent
+            </button>
+            <ul class="dropdown-menu" ngbDropdownMenu>
+              <li class="dropdown-item" *ngFor="let preset of presets">
+                {{preset.name}}
+              </li>
+            </ul>
+
+          </div>
+        </div>
+       </div>
+     <div class="legend-dropdown" *ngIf="!typeDropdownSelected">
+       <div class="dropdown" ngbDropdown>
+         <button class="btn btn-secondary" type="button" ngbDropdownToggle>
+           Show Legend
+         </button>
+         <ul class="dropdown-menu" ngbDropdownMenu>
+           <li class="dropdown-item">Workplace</li>
+           <li class="dropdown-item">MRT</li>
+           <li class="dropdown-item">Bus</li>
+           <li class="dropdown-item">ATM</li>
+           <li class="dropdown-item">Schools</li>
+         </ul>
+       </div>
+     </div>
+   </div>
+  </div>
+</div>

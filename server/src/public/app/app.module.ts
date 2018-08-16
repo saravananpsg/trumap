@@ -35,9 +35,9 @@ import { NbAuthJWTToken, NbAuthJWTInterceptor } from '@nebular/auth';
 import { AuthGuard } from './providers/auth/auth.guard.service';
 import { AuthLocalStorage } from './providers/auth/auth.local.storage.service';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
-
+import { Listings } from './providers/listings/listings';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-
+   suppressScrollX: false
 };
 
 @NgModule({
@@ -69,6 +69,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     },
     AuthGuard,
     AuthLocalStorage,
+    Listings,
   ],
   bootstrap: [AppComponent]
 })

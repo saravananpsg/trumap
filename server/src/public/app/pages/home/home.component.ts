@@ -5,16 +5,15 @@ import * as firebaseApp from 'firebase/app';
 import * as geofirex from 'geofirex';
 
 @Component({
-  selector: 'app-basic-geoquery',
-  templateUrl: './basic-geoquery.component.html',
-  styleUrls: ['./basic-geoquery.component.scss']
+  selector: 'page-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss']
 })
-export class BasicGeoqueryComponent implements OnInit {
+export class HomeComponent implements OnInit {
   geo = geofirex.init(firebaseApp);
   points: Observable<any>;
-
   radius = new BehaviorSubject(0.5);
-
+  listings:any = [];
   constructor() {}
 
   ngOnInit() {
@@ -25,7 +24,9 @@ export class BasicGeoqueryComponent implements OnInit {
     const collection = this.geo.collection('users', ref =>
       ref.where('status', '==', 'single').where('online', '==', true)
     );
+    // this.initListings();
   }
+
 
   update(v) {
     this.radius.next(v);

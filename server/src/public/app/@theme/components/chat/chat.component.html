@@ -1,0 +1,47 @@
+<div class="chat-container">
+  <div class="input-group" *ngIf="!isChatWindowExpanded">
+    <div class="input-group-prepend">
+      <button class="btn btn-secondary dropdown-toggle" type="button"
+          data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          <img src="assets/images/logo@3x.png"/>
+      </button>
+       <div class="dropdown-menu">
+         <a class="dropdown-item" href="#">Action</a>
+       </div>
+    </div>
+    <input type="text" placeholder="How can I help you today?" class="form-control"/>
+    <div class="input-group-append" (click)="sendMessage()">
+       <button class="btn btn-secondary" type="button">
+         <div class="icon">
+           <i class="fa fa-location-arrow"></i>
+         </div>
+       </button>
+    </div>
+  </div>
+  <div class="input-group" *ngIf="isChatWindowExpanded" class="expanded-window">
+    <div class="input-group-prepend">
+
+      <button class="btn btn-secondary dropdown-toggle" type="button"
+          data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          <img src="assets/images/logo@3x.png"/>
+      </button>
+       <div class="dropdown-menu">
+         <a class="dropdown-item" href="#">Action</a>
+       </div>
+    </div>
+    <div class="title">TruExpert</div>
+    <div class="input-group-append" (click)="sendMessage()">
+       <button class="btn btn-secondary" type="button"
+        (click)="isChatWindowExpanded=false">
+         <div class="icon">
+           <i class="fa fa-chevron-up"></i>
+         </div>
+       </button>
+    </div>
+  </div>
+  <div class="" *ngIf="isChatWindowExpanded">
+    <ngx-chat-message-component></ngx-chat-message-component>
+  </div>
+</div>

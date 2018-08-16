@@ -21,6 +21,11 @@ import {
 } from '@nebular/theme';
 
 import { NbSecurityModule } from '@nebular/security';
+import { UiScrollModule } from 'ngx-ui-scroll';
+import { VirtualScrollModule } from 'angular2-virtual-scroll';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+
 
 import {
   LoginComponent,
@@ -32,6 +37,10 @@ import {
   SearchInputComponent,
   ThemeSwitcherComponent,
   DownloadModalComponent,
+  ToolbarComponent,
+  ListingComponent,
+  ChatComponent,
+  ChatMessageComponent,
 } from './components';
 import { CapitalizePipe, PluralPipe, RoundPipe, TimingPipe } from './pipes';
 import {
@@ -40,7 +49,8 @@ import {
 import { DEFAULT_THEME } from './styles/theme.default';
 import { COSMIC_THEME } from './styles/theme.cosmic';
 
-const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
+const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule, UiScrollModule,
+  VirtualScrollModule, LazyLoadImageModule, PerfectScrollbarModule];
 
 const NB_MODULES = [
   NbAuthModule,
@@ -71,6 +81,10 @@ const COMPONENTS = [
   SearchInputComponent,
   SampleLayoutComponent,
   DownloadModalComponent,
+  ToolbarComponent,
+  ListingComponent,
+  ChatComponent,
+  ChatMessageComponent,
 ];
 
 const PIPES = [
@@ -96,7 +110,7 @@ const NB_THEME_PROVIDERS = [
 @NgModule({
   imports: [...BASE_MODULES, ...NB_MODULES, RouterModule],
   exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES],
-  declarations: [...COMPONENTS, ...PIPES],
+  declarations: [ ...COMPONENTS, ...PIPES],
   entryComponents: entryComponents,
 })
 export class ThemeModule {
