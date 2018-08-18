@@ -9,5 +9,6 @@ export * from './auth/reset-password/reset.password.component';
 export * from './modal/download.modal.component';
 export * from './toolbar/toolbar.component';
 export * from './listing/listing.component';
+export * from './listing/listing-filter/listing-filter.component';
 export * from './chat/chat.component';
 export * from './chat/chat.message/chat.message.component';

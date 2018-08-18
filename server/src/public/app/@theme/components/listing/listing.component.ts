@@ -12,6 +12,8 @@ export class ListingComponent implements AfterViewInit {
   protected listings: any = [];
   protected loading = false;
   protected error = '';
+  protected selectedListing: any;
+  @Input() mouseEnterHomePage: boolean;
   constructor(private logger: NGXLogger, private listingsService: Listings){}
 
   private initListings() {
@@ -63,4 +65,9 @@ export class ListingComponent implements AfterViewInit {
     });
   }
 
+  protected toggleSelectListing(listing): void {
+    this.selectedListing = (this.selectedListing && (listing.id === this.selectedListing.id))
+      ? null : listing;
+    this.logger.debug('SELECT LISTING:', listing);
+  }
 }

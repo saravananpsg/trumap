@@ -1,9 +1,9 @@
 <div class="row toolbar-container">
-  <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 chat-bar">
-    <ngx-chat-component></ngx-chat-component>
+  <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 chat-bar inner-row">
+    <ngx-chat-component class=""></ngx-chat-component>
   </div>
   <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12 flex flex-alig-center
-    flex-justify-center">
+    flex-justify-center inner-row">
     <div class="btn-group zoom-bar">
       <button type="button" class="btn btn-secondary"
         [ngClass]="{'selected': selectedZoomAction === zoomAction.name}"
@@ -15,7 +15,7 @@
       </button>
     </div>
   </div>
-  <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+  <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12 inner-row">
     <div class="presets-bar">
       <div class="type-dropdown">
         <div class="top-bottom-container">

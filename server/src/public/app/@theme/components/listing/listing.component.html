@@ -1,40 +1,146 @@
-<div class="listing-component">
+<div class="listing-component" >
+  <div class="listing-filter-holder" [ngClass]="{'selected': (!!selectedListing)}">
+    <ngx-listing-filter [count]="listings[0]?.totalcount"
+      (onSelectFilter)="onSelectFilter($event)">
+    </ngx-listing-filter>
+  </div>
   <div class="listing-holder flex">
-    <div class="listing-search-results flex flex-column
-      flex-align-center flex-justify-center">
-      <div class="matches">
-        <h5>{{listings[0]?.totalcount}} matches found.</h5>
-      </div>
-      <button class="btn btn-outline-info btn-sm">New Search</button>
-    </div>
+
     <virtual-scroll
       [horizontal]="true"
       [items]="listings"
       (update)="scrollItems = $event"
       (change)="indices = $event"
-      (end)="fetchMore($event)">
+      (end)="fetchMore($event)"
+      [ngClass]="{'selected': (!!selectedListing)}"
+
+      >
 
       <div  *ngFor="let listing of scrollItems; let i = index" class="inline">
-        <div class="listing-tile">
-          <div class="listing-header  flex flex-align-center">
-            <span class="text-ellipsis">{{listing?.project_name}}</span>
-          </div>
-          <img src="https://picsum.photos/300/300/?random={{listing?.index}}"/>
+        <div class="listing-tile" (click)="toggleSelectListing(listing)"
+          [ngClass]="{'selected': (listing?.id === selectedListing?.id)}">
+          <div class="inner-tile">
+            <div class="listing-short-info">
+              <div class="listing-header">
+                <div class="level-1-holder flex flex-column flex-justify-center">
+                  <div class="address-title text-ellipsis">
+                    {{listing?.project_name | lowercase}}</div>
+                  <div class="address-desc text-ellipsis">{{listing?.address | lowercase}}</div>
+                </div>
+              </div>
+              <img src="https://picsum.photos/300/300/?random={{listing?.index}}"/>
+              <div class="listing-footer">
+                <div class="left">
+                  <div class="listing-index">
+                    {{listing?.index}}
+                  </div>
+                </div>
+                <div class="right">
+                  <div class="listing-status">
+                    {{listing?.status || 'VISITED'}}
+                  </div>
+                  <div class="liked" *ngIf="listing.liked">
+                    <i class="fa fa-heart"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           <!-- <div [defaultImage]="'https://picsum.photos/300/300/?random=100'"
             [lazyLoad]="listing.url" class="listing-image">
           </div>-->
-          <div class="listing-footer">
-            <div class="left">
-              <div class="listing-index">
-                {{listing?.index}}
+            <div class="listing-medium-info">
+              <div class="level-2-holder flex flex-align-center">
+                <div class="bed flex-child flex-width-50">
+                  <span> 2 <i class="fa fa-bed"></i></span>
+                </div>
+                <div class="bath">
+                  <span> 1 <i class="fa fa-bath"></i></span>
+                </div>
+              </div>
+              <div class="level-3-holder flex  flex-align-center">
+                <div class="rent flex flex-column flex-child flex-width-50">
+                  <label>MONTHLY RENT</label>
+                  <label>$2400</label>
+                </div>
+                <div class="sqft flex flex-column">
+                  <label>PSF</label>
+                  <label>$17.91</label>
+                </div>
               </div>
             </div>
-            <div class="right">
-              <div class="listing-status">
-                {{listing?.status || 'VISITED'}}
+            <div class="listing-large-info">
+              <div class="level-4-holder flex  flex-align-center">
+                <div class=" flex flex-column flex-child flex-width-50">
+                  <label>PROPERTY TYPE</label>
+                  <label>Apartment</label>
+                </div>
+                <div class=" flex flex-column">
+                  <label>SQFT</label>
+                  <label>144</label>
+                </div>
               </div>
-              <div class="liked" *ngIf="listing.liked">
-                <i class="fa fa-heart"></i>
+              <div class="level-5-holder">
+                <div class="group-1">
+                  <label class="title">PUBLIC TRANSPORT </label>
+                  <div class="row-1 flex ">
+                    <div class="flex flex-column flex-child flex-width-50">
+                      <label class="title"> <i class="fa fa-train"></i>MRT</label>
+                      <label class="info">DT23 Bendemeer</label>
+                      <label class="info">EW11 Lavender</label>
+                    </div>
+                    <div class=" flex flex-column">
+                      <label class="title"><i class="fa fa-bus-alt"></i>BUS</label>
+                      <label>13, 67, 107, 107M, 133, 141, 145, 175, 961, 961C</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="group-2 flex flex-column">
+                  <label class="title">TIME TO</label>
+                  <label class="sub-title"> <i class="fa fa-map-marker-alt"></i> TOWN </label>
+                  <div class="flex">
+                    <label class="flex-child flex-width-50">
+                      2 Orchard Turn, Singapore 238801
+                    </label>
+                    <label>9 MINS</label>
+                  </div>
+                </div>
+                <div class="group-3 flex">
+                  <label class="sub-title"><i class="fa fa-plus-circle"></i>
+                    ADD A LOCATION
+                  </label>
+                </div>
+              </div>
+
+              <div class="level-6-holder">
+                <label>AGENT</label>
+                <div class="media flex flex-align-center">
+                  <img class="mr-3" src="https://picsum.photos/100/100/?random=2" alt="">
+                  <div class="media-body">
+                    <h5 class="mt-0">John Smith</h5>
+                    <span>Last seen: 12/08/18 7:44 PM</span>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-outline-primary btn-block">
+                  VIEW FULL LISTING
+                </button>
+              </div>
+              <div class="level-7-holder">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <button class="btn btn-secondary" type="button">
+                        <img src="assets/images/logo@3x.png"/>
+                    </button>
+                  </div>
+                  <input type="text" placeholder="Questions?" class="form-control"/>
+                  <div class="input-group-append" (click)="sendMessage()">
+                     <button class="btn btn-secondary" type="button">
+                       <div class="icon">
+                         <i class="fa fa-location-arrow"></i>
+                       </div>
+                     </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
