@@ -40,6 +40,7 @@ import {
   ToolbarComponent,
   ListingComponent,
   ListingFilterComponent,
+  ListingTileComponent,
   ChatComponent,
   ChatMessageComponent,
 } from './components';
@@ -85,6 +86,7 @@ const COMPONENTS = [
   ToolbarComponent,
   ListingComponent,
   ListingFilterComponent,
+  ListingTileComponent,
   ChatComponent,
   ChatMessageComponent,
 ];
