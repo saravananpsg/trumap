@@ -1,4 +1,4 @@
-<div class="listing-tile" (click)="toggleSelectListing(listing)"
+<div class="listing-tile" (click)="toggleSelectListing($event, listing)"
   [ngClass]="{'selected': (listing?.id === selectedListing?.id)}">
   <div class="inner-tile">
     <div class="listing-short-info">

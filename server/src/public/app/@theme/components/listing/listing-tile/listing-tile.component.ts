@@ -11,7 +11,8 @@ export class ListingTileComponent {
   @Input() listing: any;
   @Input() selectedListing: any;
   @Output() onToggleSelectListing: EventEmitter<any> = new EventEmitter<any>();
-  toggleSelectListing(listing) {
+  toggleSelectListing($event, listing) {
+    $event.stopImmediatePropagation();
     this.onToggleSelectListing.emit(listing);
   }
 }

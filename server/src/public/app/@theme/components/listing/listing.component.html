@@ -12,12 +12,10 @@
       (change)="indices = $event"
       (end)="fetchMore($event)"
       [ngClass]="{'selected': (!!selectedListing)}">
-
       <div  *ngFor="let listing of scrollItems; let i = index" class="inline">
         <ngx-listing-tile [listing]="listing"
           [selectedListing]="selectedListing"
-          (onToggleSelectListing)="toggleSelectListing(listing)"
-
+          (onToggleSelectListing)="toggleSelectListing($event, listing)"
         ></ngx-listing-tile>
       </div>
       <!--   (mouseleave)="(listing.id === selectedListing.id) ?
