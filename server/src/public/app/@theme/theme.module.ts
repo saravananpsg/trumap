@@ -39,6 +39,8 @@ import {
   DownloadModalComponent,
   ToolbarComponent,
   ListingComponent,
+  ListingFilterComponent,
+  ListingTileComponent,
   ChatComponent,
   ChatMessageComponent,
 } from './components';
@@ -83,6 +85,8 @@ const COMPONENTS = [
   DownloadModalComponent,
   ToolbarComponent,
   ListingComponent,
+  ListingFilterComponent,
+  ListingTileComponent,
   ChatComponent,
   ChatMessageComponent,
 ];

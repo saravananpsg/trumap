@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import * as firebaseApp from 'firebase/app';
@@ -31,4 +31,5 @@ export class HomeComponent implements OnInit {
   update(v) {
     this.radius.next(v);
   }
+
 }

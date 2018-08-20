@@ -2,11 +2,14 @@
 $dropdownTitleColor:#4DB6EA;
 @include nb-install-component() {
   .toolbar-container {
+    .inner-row {
+      margin-bottom: 0.5rem;
+    }
     .dropdown-menu {
       padding: 0;
     }
     .zoom-bar {
-      position: absolute;
+      height: 3.5rem;
       button {
         padding: 1rem 0.75rem;
       }

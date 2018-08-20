@@ -1,0 +1,105 @@
+@import '../../../styles/themes';
+@include nb-install-component() {
+  .listing-filter-container {
+    padding: 0 1rem;
+    height: 5rem;
+    .matches {
+      padding-top: 0.8rem;
+      label {
+        font-size: 0.75rem;
+        margin-bottom: 0;
+      }
+      h4 {
+        color: nb-theme(color-primary);
+      }
+      width: 150px;
+    }
+    .divider {
+      width: 0px;
+      height: 70%;
+      border: solid 0.5px;
+      align-self: center;
+      margin-right: 1rem;
+    }
+    .filter-holder {
+      .filter-item {
+        padding-top: 0.4rem;
+        margin:0 0.5rem;
+        label {
+          font-size: 0.75rem;
+          margin-bottom: 0;
+        }
+        .dropdown {
+          button {
+            min-width: 10rem;
+            padding: 0.5rem 0.75rem;
+            border: solid 1px;
+            border-radius: 0;
+            font-size: 0.8rem;
+            color: nb-theme(color-primary);
+          }
+          .dropdown-menu {
+            padding: 0;
+            background-color: #fff;
+            color: nb-theme(color-primary);
+          }
+          .dropdown-item {
+            padding: 0.75rem 0.8rem;
+            &:hover {
+              color: nb-theme(color-primary);
+            }
+          }
+        }
+        .form-control {
+          padding: 0.22rem 0.5rem;
+          border: solid 1px;
+          border-radius: 0;
+          min-width: 10rem;
+          color: nb-theme(color-primary);
+        }
+        .input-group {
+          position: relative;
+          i {
+            position: absolute;
+            right: 0.7rem;
+            top: 0.5rem;
+          }
+        }
+      }
+      .tx-type-container {
+        .dropdown {
+          button {
+            min-width: 8rem;
+            border: 0;
+          }
+        }
+      }
+      .size-type-container {
+        .dropdown {
+          button {
+            min-width: 11rem;
+          }
+        }
+      }
+      .move-in-type-container {
+        position: relative;
+        ::ng-deep ngb-datepicker {
+          top: -215px !important;
+        }
+        i {
+          position: absolute;
+          right: 10px;
+          top: 30px;
+          color: #332F28;
+        }
+      }
+      .all-filters-container {
+        h6 {
+          font-weight: bold;
+          margin-bottom: 0;
+          color: nb-theme(color-primary);
+        }
+      }
+    }
+  }
+}

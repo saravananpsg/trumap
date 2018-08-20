@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, HostListener } from '@angular/core';
 import { ChangeEvent } from 'angular2-virtual-scroll';
 import { NGXLogger } from 'ngx-logger';
 import { Listings } from '../../../providers/listings/listings';
@@ -12,6 +12,8 @@ export class ListingComponent implements AfterViewInit {
   protected listings: any = [];
   protected loading = false;
   protected error = '';
+  protected selectedListing: any;
+  @Input() mouseEnterHomePage: boolean;
   constructor(private logger: NGXLogger, private listingsService: Listings){}
 
   private initListings() {
@@ -63,4 +65,14 @@ export class ListingComponent implements AfterViewInit {
     });
   }
 
+  protected toggleSelectListing(listing): void {
+    this.selectedListing = (this.selectedListing && (listing.id === this.selectedListing.id))
+      ? null : listing;
+    this.logger.debug('SELECT LISTING:', listing);
+  }
+
+  @HostListener('click',['$event'])
+  onClick($event) {
+    (this.selectedListing) ? this.selectedListing = null : null;
+  }
 }
