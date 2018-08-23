@@ -29,10 +29,8 @@ $labelColorInfoTitle: #202020;
     height: 130px;
     position: relative;
     padding: 0 0.25rem;
-    transition: none;
     &.selected {
       overflow-y: auto;
-      transition: height 600ms ease-out;
       .inner-tile {
         border: solid 2px #F5A623;
       }
