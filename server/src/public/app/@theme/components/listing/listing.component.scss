@@ -1,6 +1,7 @@
 @import '../../styles/themes';
 @include nb-install-component() {
   .listing-component {
+    z-index: 2;
     position: relative;
     .listing-filter-holder {
       display: flex;
@@ -19,6 +20,7 @@
         background-color: #fff;
         &.selected {
           height: 100vh !important;
+          max-height: 100vh !important;
           .inline {
             align-self: flex-end;
           }
@@ -26,6 +28,8 @@
         }
         &:hover, &.selected {
           height: 252px;
+          max-height: 252px;
+          transition: height 600ms ease-out;
           ::ng-deep .listing-tile {
             height: 252px;
             background: #fff;

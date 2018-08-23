@@ -25,7 +25,8 @@ import { UiScrollModule } from 'ngx-ui-scroll';
 import { VirtualScrollModule } from 'angular2-virtual-scroll';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
-
+import { NgPipesModule } from 'ngx-pipes';
+import { NgxAutoScrollModule } from "ngx-auto-scroll";
 
 import {
   LoginComponent,
@@ -52,7 +53,8 @@ import { DEFAULT_THEME } from './styles/theme.default';
 import { COSMIC_THEME } from './styles/theme.cosmic';
 
 const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule, UiScrollModule,
-  VirtualScrollModule, LazyLoadImageModule, PerfectScrollbarModule];
+  VirtualScrollModule, LazyLoadImageModule, PerfectScrollbarModule, NgPipesModule,
+  NgxAutoScrollModule];
 
 const NB_MODULES = [
   NbAuthModule,

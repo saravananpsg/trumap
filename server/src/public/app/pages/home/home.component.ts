@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import * as firebaseApp from 'firebase/app';
@@ -10,6 +10,7 @@ import * as geofirex from 'geofirex';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  @ViewChild('mapbox') mapbox: any;
   geo = geofirex.init(firebaseApp);
   points: Observable<any>;
   radius = new BehaviorSubject(0.5);
@@ -27,6 +28,11 @@ export class HomeComponent implements OnInit {
     // this.initListings();
   }
 
+  changeZoom(zoomLevel) {
+    (this.mapbox.mapInstance) ?
+      this.mapbox.mapInstance.zoomTo(this.mapbox.mapInstance.getZoom() + zoomLevel)
+      : null;
+  }
 
   update(v) {
     this.radius.next(v);

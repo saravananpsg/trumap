@@ -1,10 +1,39 @@
 @import '../../../styles/themes';
+@mixin message-text() {
+  .message-text {
+    max-width: 80%;
+    .message-body {
+      display: flex;
+      margin: 1rem 1rem 0.5rem 1rem;
+      padding: 0.5rem 1rem;
+      border: solid 1px;
+      border-radius: 8px;
+    }
+    .message-time {
+      font-size: 0.8rem;
+      float: right;
+      margin-right: 1rem;
+    }
+  }
+}
 @include nb-install-component() {
   .message-chat {
+    height: 100%;
+    .form-control {
+      z-index: 1;
+    }
+    .message-chat-area {
+      height: 80%;
+    }
     .message-chat-content {
-      min-height: 300px;
-      max-height: 300px;
+      height: 100%;
       background: #fff;
+      display: flex;
+      overflow-y: auto;
+      overflow-x: hidden;
+      flex-direction: column;
+      @include message-text();
+
     }
     .message-chat-footer {
       display: flex;

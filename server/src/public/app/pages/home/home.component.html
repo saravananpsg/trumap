@@ -11,11 +11,10 @@
 
 
       <agm-circle [latitude]="40.5" [longitude]="-80" [radius]="(radius | async) * 1000"></agm-circle>
-
   </agm-map>-->
-  <mgl-map 
+  <mgl-map #mapbox
     [style]="'mapbox://styles/galvinw/cjki32wem35cb2ss2vhqr1tu1'"
-    [zoom]="10.9"
+    [zoom]="15"
     [center]="[103.837126, 1.352105]"
   >
   </mgl-map>
@@ -40,7 +39,7 @@
         [disabled]="(radius | async) === 1500" (click)="update(1500)">Query to 1500km</button>
   </div>-->
   <div class="top-toolbar">
-    <ngx-toolbar></ngx-toolbar>
+    <ngx-toolbar (onZoomSelected)="changeZoom($event)"></ngx-toolbar>
   </div>
   <div class="footer-toolbar">
     <ngx-listing  #listings></ngx-listing>
