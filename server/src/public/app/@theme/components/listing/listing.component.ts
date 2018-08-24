@@ -2,18 +2,20 @@ import { Component, OnInit, Input, AfterViewInit, HostListener } from '@angular/
 import { ChangeEvent } from 'angular2-virtual-scroll';
 import { NGXLogger } from 'ngx-logger';
 import { Listings } from '../../../providers/listings/listings';
+import { trigger, state, style, animate, transition } from '@angular/animations';
+
 const LIMIT = 20;
 @Component({
   selector: 'ngx-listing',
   templateUrl: './listing.component.html',
-  styleUrls: ['./listing.component.scss']
+  styleUrls: ['./listing.component.scss'],
 })
 export class ListingComponent implements AfterViewInit {
   protected listings: any = [];
   protected loading = false;
   protected error = '';
   protected selectedListing: any;
-  @Input() mouseEnterHomePage: boolean;
+  protected selectToUnselect = false;
   constructor(private logger: NGXLogger, private listingsService: Listings){}
 
   private initListings() {
@@ -68,11 +70,19 @@ export class ListingComponent implements AfterViewInit {
   protected toggleSelectListing(listing): void {
     this.selectedListing = (this.selectedListing && (listing.id === this.selectedListing.id))
       ? null : listing;
+    (this.selectedListing) ? this.selectToUnselect = false : null;
     this.logger.debug('SELECT LISTING:', listing);
   }
 
   @HostListener('click',['$event'])
   onClick($event) {
-    (this.selectedListing) ? this.selectedListing = null : null;
+
+    if(this.selectedListing) {
+      this.selectedListing = null;
+      this.selectToUnselect = true;
+      setTimeout(() => {
+        this.selectToUnselect = false;
+      }, 700)
+    }
   }
 }
