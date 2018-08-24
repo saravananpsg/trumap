@@ -6,12 +6,12 @@
     flex-justify-center inner-row">
     <div class="btn-group zoom-bar">
       <button type="button" class="btn btn-secondary"
-        [ngClass]="{'selected': selectedZoomAction === zoomAction.name}"
+        [ngClass]="{'selected': zoomLevels.currentZoomLevel === zoomAction.zoomLevel}"
         *ngFor="let zoomAction of zoomActions"
         [disabled]="zoomAction.isDisabled"
-        (click)="selectedZoomAction = zoomAction.name"
-      >
-        <i class="fa fa-{{zoomAction?.icon}}"  placement="top" ngbTooltip="{{zoomAction.tooltip}}"></i>
+        (click)="selectZoomAction(zoomAction)">
+        <i class="fa fa-{{zoomAction?.icon}}"  placement="top"
+        ngbTooltip="{{zoomAction.tooltip}}"></i>
       </button>
     </div>
   </div>
