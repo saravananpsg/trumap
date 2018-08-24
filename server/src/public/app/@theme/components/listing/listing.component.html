@@ -22,7 +22,7 @@
         <ngx-listing-tile [listing]="listing"
           [selectedListing]="selectedListing"
           (onToggleSelectListing)="toggleSelectListing($event, listing)"
-          [@selectUnselect]="state"
+          class="flex"
         ></ngx-listing-tile>
       </div>
       <!--   (mouseleave)="(listing.id === selectedListing.id) ?

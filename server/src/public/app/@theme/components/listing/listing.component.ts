@@ -49,7 +49,7 @@ export class ListingComponent implements AfterViewInit {
 
   protected load(filter = { offset: 0, limit: LIMIT }): void {
     //return
-    this.listingsService.uraListings(filter).subscribe(data => {
+    this.listingsService.vwListings(filter).subscribe(data => {
           const listingsData: any = data;
           let newIndex = filter.offset + 1;
 
