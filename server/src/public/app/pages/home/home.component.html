@@ -16,7 +16,109 @@
     [style]="'mapbox://styles/galvinw/cjki32wem35cb2ss2vhqr1tu1'"
     [zoom]="15"
     [center]="[103.837126, 1.352105]"
+    [cursorStyle]="cursorStyle"
   >
+
+    <mgl-geojson-source
+      id="listings"
+      [data]="geoListings">
+    </mgl-geojson-source>
+
+    <mgl-layer
+      id="listings-custom"
+      source="listings"
+      type="symbol"
+      [layout]="{
+        'icon-image': '{icon}-15',
+        'icon-allow-overlap': true
+      }"
+      (click)="onClick($event)"
+      (mouseEnter)="cursorStyle = 'pointer'"
+      (mouseLeave)="cursorStyle = ''"
+      >
+    </mgl-layer>
+    <mgl-popup
+      *ngIf="selectedPoint"
+      [lngLat]="selectedPoint.geometry?.coordinates">
+      <div class="flex flex-column flex-align-center"
+        [innerHTML]="selectedPoint.properties?.description">
+      </div>
+    </mgl-popup>
+
+    <!--<mgl-geojson-source
+      id="listings"
+      [data]="geoJSONListings?.data"
+      [cluster]="true"
+      [clusterMaxZoom]="19"
+      [clusterRadius]="5">
+    </mgl-geojson-source>
+
+    <mgl-layer
+      id="non-cluster-markers"
+      type="symbol"
+      [source]="geoJSONListings"
+      [layout]="{
+        'icon-image': 'marker-15'
+      }"
+      [paint]="{}"
+      interactive="true"
+      >
+    </mgl-layer>
+
+
+    <mgl-layer
+      id="cluster-low"
+      type="circle"
+      [source]="geoJSONListings"
+      [filter]="['<', 'point_count', 5]"
+      [paint]="{
+        'circle-color': '#1a9641',
+        'circle-radius': 18
+      }"
+      interactive="true"
+      >
+    </mgl-layer>
+
+    <mgl-layer
+      id="cluster-medium"
+      type="circle"
+      [source]="geoJSONListings"
+      [filter]=" [
+        'all',
+          ['>', 'point_count', 15],
+          ['<=', 'point_count', 75]
+      ]"
+      [layout]="{}"
+      [paint]="{
+        'circle-color': '#ffffbf',
+        'circle-radius': 18
+      }"
+      interactive="true"
+      >
+    </mgl-layer>
+
+
+
+    <mgl-layer
+      id="cluster-high"
+      type="circle"
+      [source]="geoJSONListings"
+      [filter]="['>', 'point_count', 75]"
+      [paint]="{
+        'circle-color': '#fc8d59',
+        'circle-radius': 18
+      }"
+      interactive="true"
+      >
+    </mgl-layer>
+
+    <mgl-layer
+      id="cluster-count"
+      type="symbol"
+      [source]="geoJSONListings"
+      interactive="true"
+      >
+    </mgl-layer>-->
   </mgl-map>
 
 
@@ -42,6 +144,6 @@
     <ngx-toolbar (onZoomSelected)="changeZoom($event)"></ngx-toolbar>
   </div>
   <div class="footer-toolbar">
-    <ngx-listing  #listings></ngx-listing>
+    <ngx-listing  #listings (onAddListings)="addListings($event)"></ngx-listing>
   </div>
 </div>

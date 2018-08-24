@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit, HostListener } from '@angular/core';
+import { Component, OnInit, Output, Input, AfterViewInit, HostListener, EventEmitter } from '@angular/core';
 import { ChangeEvent } from 'angular2-virtual-scroll';
 import { NGXLogger } from 'ngx-logger';
 import { Listings } from '../../../providers/listings/listings';
@@ -16,6 +16,7 @@ export class ListingComponent implements AfterViewInit {
   protected error = '';
   protected selectedListing: any;
   protected selectToUnselect = false;
+  @Output() onAddListings: EventEmitter<any> = new EventEmitter<any>();
   constructor(private logger: NGXLogger, private listingsService: Listings){}
 
   private initListings() {
@@ -58,6 +59,7 @@ export class ListingComponent implements AfterViewInit {
             newIndex++;
           });
           this.listings = this.listings.concat(listingsData);
+          this.onAddListings.emit(listingsData);
           this.logger.debug('Listings Data:', this.listings);
           //this.listings = this.listings.concat(this.listings.slice(0, 19));
           this.loading = false;
