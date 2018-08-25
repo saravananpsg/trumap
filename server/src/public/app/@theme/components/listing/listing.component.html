@@ -11,11 +11,18 @@
       (update)="scrollItems = $event"
       (change)="indices = $event"
       (end)="fetchMore($event)"
-      [ngClass]="{'selected': (!!selectedListing)}">
+      [ngClass]="{'selected': (!!selectedListing),
+        'select-unselect-mouseover': (selectToUnselect && mouseover),
+        'mouseover': (mouseover),
+        'mouseleave': (!mouseover)}"
+      (mouseover)="mouseover = true"
+      (mouseleave)="mouseover = false"
+      >
       <div  *ngFor="let listing of scrollItems; let i = index" class="inline">
         <ngx-listing-tile [listing]="listing"
           [selectedListing]="selectedListing"
           (onToggleSelectListing)="toggleSelectListing($event, listing)"
+          class="flex"
         ></ngx-listing-tile>
       </div>
       <!--   (mouseleave)="(listing.id === selectedListing.id) ?

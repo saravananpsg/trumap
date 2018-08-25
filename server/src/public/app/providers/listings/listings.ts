@@ -10,6 +10,7 @@ import { filter, share } from 'rxjs/operators';
 export class Listings  {
   protected data$: BehaviorSubject<any> = new BehaviorSubject(null);
   listingsUrl = 'listings/uralistings';
+  vwlUrl = 'listings/voluntarywelfarelistings'
 
   constructor(public api: Api, private logger: NGXLogger) {
 
@@ -22,6 +23,10 @@ export class Listings  {
 
   uraListings(params?: any) {
     return this.api.get(this.listingsUrl, params);
+  }
+
+  vwListings(params?: any) {
+    return this.api.get(this.vwlUrl, params);
   }
 
   dataChanged(): Observable<any> {

@@ -9,8 +9,12 @@ var path = require('path'),
   db = require(path.resolve('./src/config/lib/sequelize')),
   errorHandler = require(path.resolve('./src/app/core/controllers/errors.server.controller')),
   moment = require('moment');
-const _uraListingsQuery = `SELECT *, count(*) OVER() as totalCount from ura_residentialtransaction order by id
-  limit :limit offset :offset`
+const _uraListingsQuery = `SELECT *, count(*) OVER() as totalCount from
+  ura_residentialtransaction order by id limit :limit offset :offset`;
+
+const _voluntaryWelfareListQuery = `SELECT *,  count(*) OVER() as totalCount FROM
+  public.voluntary_welfare_list vwl inner join voluntary_welfare_details vwd ON
+  (vwl.id = vwd.id) order by vwl.id limit :limit offset :offset`
 
 exports.uraListings = function(req, res) {
   const query = _uraListingsQuery;
@@ -29,3 +33,21 @@ exports.uraListings = function(req, res) {
       return res.status(400).send(err);
     });
 }
+
+exports.voluntaryWelfareList= function(req, res) {
+  const query = _voluntaryWelfareListQuery;
+  console.log('VWL Params:', req.query);
+  console.log('VWL Query:', query);
+  const limit = req.query.limit || 20;
+  const offset = req.query.offset || 0;
+  db.sequelize.query(query,
+    { replacements: { limit: req.query.limit, offset: req.query.offset },
+    type: db.sequelize.QueryTypes.SELECT })
+    .then((results) => {
+      return res.json(results);
+    })
+    .catch((err) => {
+      console.log('ERROR:', err);
+      return res.status(400).send(err);
+    });
+};

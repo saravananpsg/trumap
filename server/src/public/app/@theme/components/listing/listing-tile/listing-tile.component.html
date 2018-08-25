@@ -1,12 +1,15 @@
 <div class="listing-tile" (click)="toggleSelectListing($event, listing)"
-  [ngClass]="{'selected': (listing?.id === selectedListing?.id)}">
+  [ngClass]="{'selected': (listing?.id === selectedListing?.id),
+    'selected-animation-complete': selectedAnimationDone}"
+  [@selectUnselect]="(listing?.id === selectedListing?.id)"
+  (@selectUnselect.done)="animationDone($event)">
   <div class="inner-tile">
     <div class="listing-short-info">
       <div class="listing-header">
         <div class="level-1-holder flex flex-column flex-justify-center">
           <div class="address-title text-ellipsis">
-            {{listing?.project_name | lowercase}}</div>
-          <div class="address-desc text-ellipsis">{{listing?.address | lowercase}}</div>
+            {{listing?.name | lowercase}}</div>
+          <div class="address-desc text-ellipsis">{{listing?.building_name | lowercase}}</div>
         </div>
       </div>
       <img src="https://picsum.photos/300/300/?random={{listing?.index}}"/>
