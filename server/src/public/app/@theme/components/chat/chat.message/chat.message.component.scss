@@ -2,17 +2,67 @@
 @mixin message-text() {
   .message-text {
     max-width: 80%;
+    display: inline-flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+    color: rgba(0,0,0,0.54);
+    &.right {
+      align-items: flex-end;
+      float: right;
+    }
     .message-body {
-      display: flex;
+      min-width: 6rem;
+      display: inline-flex;
+      justify-content: center;
       margin: 1rem 1rem 0.5rem 1rem;
-      padding: 0.5rem 1rem;
+      padding: 1rem 1rem;
       border: solid 1px;
       border-radius: 8px;
+      &.basic-preset {
+        background-color: #CAE9F8;
+        border: 0;
+        font-weight: bold;
+      }
+      &.message-presets-body {
+        padding: 0;
+      }
     }
     .message-time {
       font-size: 0.8rem;
-      float: right;
+      align-self: flex-end;
       margin-right: 1rem;
+    }
+    ul {
+      list-style: none;
+      z-index: 10;
+      li {
+        z-index: 9;
+        height: 3rem;
+        border-bottom: solid 1px;
+        &.title {
+          padding: 0 1rem;
+        }
+        .btn {
+          z-index: 9;
+          background: transparent;
+          color: #4DB6EA;
+          font-weight: bold;
+          padding: 0.9rem 1.65rem;
+          border-radius: 0;
+          border: 0;
+          text-transform: capitalize;
+          &:hover {
+            background-color: #4DB6EA;
+            color: #fff;
+          }
+        }
+        &:last-child {
+          border-bottom: 0;
+          .btn {
+            border-radius: 0 0 8px 8px;
+          }
+        }
+      }
     }
   }
 }

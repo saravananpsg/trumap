@@ -120,7 +120,7 @@ module.exports.initSession = function(app, db) {
     resave: true,
     secret: config.sessionSecret,
     cookie: {
-      maxAge: config.sessionCookie.sessionExpiration,
+      maxAge: config.sessionCookie.maxAge,
       httpOnly: config.sessionCookie.httpOnly,
       secure: config.sessionCookie.secure && config.secure.ssl
     },

@@ -6,6 +6,13 @@ import { AppComponent } from './app.component';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { CookieService } from 'ngx-cookie-service';
+
+import { environment } from '../environments/environment';
+
+const socketConfig: SocketIoConfig = { url: environment.socket.serverUrl, options: {} };
+
 export const config = {
   apiKey: 'AIzaSyCdMSf2ycGKFSd3QmRCvaU7JBU6_8dmYio',
   authDomain: 'firestore-test-d4910.firebaseapp.com',
@@ -36,6 +43,9 @@ import { AuthGuard } from './providers/auth/auth.guard.service';
 import { AuthLocalStorage } from './providers/auth/auth.local.storage.service';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { Listings } from './providers/listings/listings';
+import { ChatService } from './providers/socket/chat.service';
+
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
    suppressScrollX: false
 };
@@ -58,6 +68,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       serverLogLevel: NgxLoggerLevel.ERROR}),
     PerfectScrollbarModule,
     LazyLoadImageModule,
+    SocketIoModule.forRoot(socketConfig),
   ],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },
@@ -70,6 +81,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AuthGuard,
     AuthLocalStorage,
     Listings,
+    ChatService,
+    CookieService
   ],
   bootstrap: [AppComponent]
 })

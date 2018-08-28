@@ -6,14 +6,35 @@
         *ngFor="let chatMessage of (chatMessages |
           orderByImpure: chatMessagesFilter)">
           <div class="message-text" *ngIf="!chatMessage?.data?.type ||
-            (chatMessage.data.type === 'text')">
-            <span class="message-body">{{ chatMessage?.data?.message}}</span>
+            (chatMessage.data.type === 'basic') ||
+            (chatMessage.data.type === 'basic-preset')"
+            [ngClass]="{'right': !chatMessage.username}"
+            >
+            <span class="message-body"
+              [ngClass]="{'basic-preset': (chatMessage?.data?.type === 'basic-preset')}">
+              {{ chatMessage?.data?.text}}
+            </span>
             <span class="message-time">
-              {{ chatMessage?.data?.timestamp | date}}
+              {{ chatMessage?.timestamp | date: 'hh:mm:ss'}}
             </span>
           </div>
-          <div class="" *ngIf="chatMessage.data.type === 'buy-rent'">
-
+          <div class="message-text" *ngIf="chatMessage?.data?.type === 'presets'"
+            [ngClass]="{'right': !chatMessage.username}">
+            <ul class="message-body message-presets-body flex flex-column">
+              <li class="flex flex-align-center flex-justify-center title">
+                {{ chatMessage?.data?.text}}
+              </li>
+              <li *ngFor="let action of chatMessage?.data?.actions"
+                class="flex flex-align-center flex-justify-center">
+                <button class="btn btn-block btn-info"
+                  (click)="sendActionMessage(action)">
+                  {{ action.name }}
+                </button>
+              </li>
+            </ul>
+            <span class="message-time">
+              {{ chatMessage?.timestamp | date: 'hh:mm:ss'}}
+            </span>
           </div>
 
           <!-- <div class="image-holder" *ngIf="chatMessage.data.type === 'image'">
