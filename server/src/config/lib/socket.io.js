@@ -5,6 +5,7 @@ var config = require('../config'),
   http = require('http'),
   https = require('https'),
   cookieParser = require('cookie-parser'),
+  cookie = require('cookie'),
   passport = require('passport'),
   socketio = require('socket.io'),
   session = require('express-session'),
@@ -66,22 +67,26 @@ module.exports = function (app, db) {
   // Intercept Socket.io's handshake request
   io.use(function (socket, next) {
     // Use the 'cookie-parser' module to parse the request cookies
+    const cookies = cookie.parse(socket.request.headers.cookie || '');
+    const unsignedSessionId = cookies[config.sessionKey];
     cookieParser(config.sessionSecret)(socket.request, {}, function (err) {
       // Get the session id from the request cookies
-      var sessionId = socket.request.signedCookies ? socket.request.signedCookies[config.sessionKey] : undefined;
 
+      var sessionId = socket.request.signedCookies ? socket.request.signedCookies[config.sessionKey] : undefined;
+      console.log('Socket Handshake SessionID:', sessionId, unsignedSessionId);
       if (!sessionId) return next(new Error('sessionId was not found in socket.request'), false);
 
       // Use the mongoStorage instance to get the Express session information
       sequelizeStore.get(sessionId, function (err, session) {
         if (err) return next(err, false);
         if (!session) return next(new Error('session was not found for ' + sessionId), false);
-
+        session.sessionId = sessionId;
+        session.unsignedSessionId = unsignedSessionId;
         // Set the Socket.io session information
         socket.request.session = session;
-
+        next(null, true);
         // Use Passport to populate the user details
-        passport.initialize()(socket.request, {}, function () {
+        /*passport.initialize()(socket.request, {}, function () {
           passport.session()(socket.request, {}, function () {
             if (socket.request.user) {
               next(null, true);
@@ -89,7 +94,7 @@ module.exports = function (app, db) {
               next(new Error('User is not authenticated'), false);
             }
           });
-        });
+        });*/
       });
     });
   });

@@ -27,6 +27,7 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { NgPipesModule } from 'ngx-pipes';
 import { NgxAutoScrollModule } from "ngx-auto-scroll";
+import { SocketIoModule } from 'ngx-socket-io';
 
 import {
   LoginComponent,

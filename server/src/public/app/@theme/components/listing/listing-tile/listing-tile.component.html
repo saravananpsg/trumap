@@ -1,6 +1,6 @@
 <div class="listing-tile" (click)="toggleSelectListing($event, listing)"
   [ngClass]="{'selected': (listing?.id === selectedListing?.id),
-    'selected-animation-complete': selectedAnimationDone}"
+    'selected-animation-complete': animationComplete}"
   [@selectUnselect]="(listing?.id === selectedListing?.id)"
   (@selectUnselect.done)="animationDone($event)">
   <div class="inner-tile">

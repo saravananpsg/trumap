@@ -12,7 +12,7 @@ import { NGXLogger } from 'ngx-logger';
       state('selected', style({
         height: '*'
       })),
-      transition('* => selected', animate('600ms ease-out'))
+      transition('* => *', animate('600ms ease-out'))
     ])
   ]
 })
@@ -23,14 +23,15 @@ export class ListingTileComponent {
   protected animationComplete = false;
 
   toggleSelectListing($event, listing) {
+    this.animationComplete = false;
     $event.stopImmediatePropagation();
     this.onToggleSelectListing.emit(listing);
   }
 
   animationDone($event) {
-    this.animationComplete = true;
-    setTimeout(() => {
-      this.animationComplete = false;
-    });
+    this.animationComplete = true
+    /*setTimeout(() => {
+      this.animationComplete = true
+    }, 600);*/
   }
 }

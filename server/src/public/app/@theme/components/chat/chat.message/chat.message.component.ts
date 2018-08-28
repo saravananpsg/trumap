@@ -3,13 +3,17 @@ import { Component, OnInit, AfterViewInit, Input, ViewChild, ElementRef, OnDestr
 import { NGXLogger } from 'ngx-logger';
 
 import { BehaviorSubject } from 'rxjs';
+import { ChatService } from '../../../../providers/socket/chat.service';
 interface IChatData {
   type: string;
-  message: string;
-  timestamp: number;
+  text?: string;
+  actions?: [any];
 }
 interface IChatMessageItem {
-  [data: string]: IChatData;
+  type: string,
+  timestamp: number;
+  username?: string;
+  data: IChatData;
 }
 @Component({
   selector: 'ngx-chat-message-component',
@@ -20,9 +24,11 @@ export class ChatMessageComponent implements AfterViewInit, OnDestroy {
   @ViewChild('chatMessageInput') chatMessageInput: ElementRef;
   @ViewChild('chatContainer') chatContainer: ElementRef;
   @Input() isOpen: BehaviorSubject<boolean>;
-  protected chatMessagesFilter = 'date.timestamp';
+  protected chatMessagesFilter = 'timestamp';
   protected chatMessages = [];
   protected chatMessageText = '';
+
+  constructor(private chatService: ChatService) {}
 
   ngAfterViewInit() {
     this.isOpen.subscribe((value) => {
@@ -35,26 +41,50 @@ export class ChatMessageComponent implements AfterViewInit, OnDestroy {
       }
     });
 
+    this.chatService.getChatNotification().subscribe((message) => {
+      if (message.type === 'status' || message.type === 'control') return;
+      console.log('PUSHING CHAT MESSAGE:',this.chatMessages);
+      this.chatMessages.push(message);
+    });
+
   }
   protected sendMessage(chatMessage): void {
-    this.loadMessage(chatMessage);
+    const chatMessageItem = this.loadMessage(chatMessage);
+    this.chatService.sendMessage(chatMessageItem);
   }
 
-  public loadMessage(chatMessage): void {
+  public loadMessage(chatMessage): IChatMessageItem {
     if (!chatMessage) return;
-    const chatMesageItem: IChatMessageItem = {
+    const chatMessageItem: IChatMessageItem = {
+      type: 'message',
+      timestamp: Date.now(),
       data: {
-        type: 'text',
-        message: chatMessage,
-        timestamp: new Date().getTime()
+        type: 'basic',
+        text: chatMessage,
+      }
+    };
+    this.chatMessages.push(chatMessageItem);
+    this.chatMessageText = '';
+    return chatMessageItem;
+  }
+
+  protected sendActionMessage(action) {
+    const chatMesageItem: IChatMessageItem = {
+      type: 'message',
+      timestamp: Date.now(),
+      data: {
+        type: 'basic-preset',
+        text: action.name,
       }
     };
     this.chatMessages.push(chatMesageItem);
-    this.chatMessageText = '';
+    this.chatService.sendMessage(chatMesageItem);
+
   }
 
   public ngOnDestroy() {
     this.isOpen.unsubscribe();
+    this.chatService.getChatNotification().unsubscribe();
   }
 
 }
