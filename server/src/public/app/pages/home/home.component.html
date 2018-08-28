@@ -141,7 +141,8 @@
         [disabled]="(radius | async) === 1500" (click)="update(1500)">Query to 1500km</button>
   </div>-->
   <div class="top-toolbar">
-    <ngx-toolbar (onZoomSelected)="changeZoom($event)"></ngx-toolbar>
+    <ngx-toolbar (onZoomSelected)="changeZoom($event)"
+      (onLegendSelected)="changeMapLayers($event)"></ngx-toolbar>
   </div>
   <div class="footer-toolbar">
     <ngx-listing  #listings (onAddListings)="addListings($event)"></ngx-listing>

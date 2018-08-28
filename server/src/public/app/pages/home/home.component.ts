@@ -153,4 +153,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   onClick(evt: MapMouseEvent) {
     this.selectedPoint = (<any>evt).features[0];
   }
+
+  changeMapLayers(legends) {
+    console.log('legends:', legends);
+  }
 }

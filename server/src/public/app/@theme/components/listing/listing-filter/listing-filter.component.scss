@@ -39,6 +39,8 @@
             color: nb-theme(color-primary);
           }
           .dropdown-menu {
+            border: solid 1px #ccc;
+            border-radius: 0;
             padding: 0;
             background-color: #fff;
             color: nb-theme(color-primary);
@@ -72,12 +74,28 @@
             min-width: 8rem;
             border: 0;
           }
+          .dropdown-menu {
+            top: -76px !important;
+          }
+        }
+      }
+      .listing-type-container {
+        .dropdown-menu {
+          top: -148px !important;
+        }
+      }
+      .stay-length-type-container {
+        .dropdown-menu {
+          top: -112px !important;
         }
       }
       .size-type-container {
         .dropdown {
           button {
             min-width: 11rem;
+          }
+          .dropdown-menu {
+            top: -76px !important;
           }
         }
       }
@@ -92,6 +110,7 @@
           top: 30px;
           color: #332F28;
         }
+
       }
       .all-filters-container {
         h6 {

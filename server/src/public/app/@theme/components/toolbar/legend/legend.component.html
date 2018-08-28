@@ -1,0 +1,17 @@
+<div class="legend-component">
+  <div class="dropdown" [ngClass]="{'show': showDropdown}">
+    <button class="btn btn-secondary btn-block"
+      type="button" (click)="showDropdown = !showDropdown">
+      Show Legend
+    </button>
+    <ul class="dropdown-holder dropdown-menu" *ngIf="showDropdown"
+      [ngClass]="{'show': showDropdown}">
+      <li class="dropdown-item" *ngFor="let legend of legends"
+        (click)="toggleLegendFilter(legend)">
+        <nb-checkbox [value]="legendFilter[legend.value] || false">
+          {{legend.name}}
+        </nb-checkbox>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,5 +1,41 @@
 @import '../../styles/themes';
-$dropdownTitleColor:#4DB6EA;
+$dropdownTitleColor: #4DB6EA;
+$dropdownItemColor: #241D52;
+@mixin button-shared() {
+  button {
+    background-color: #f8f8f8;
+    border-color: #fff !important;
+    .fa {
+      color: #898783;
+    }
+    &.selected {
+      background-color: #ededed;
+      .fa {
+        color: #4c4843;
+      }
+    }
+  }
+}
+@mixin dropdown-shared() {
+  .dropdown .btn-secondary + .dropdown-menu,
+  .dropdown .btn-outline-secondary + .dropdown-menu,
+  .dropup .btn-secondary + .dropdown-menu,
+  .dropup .btn-outline-secondary + .dropdown-menu {
+    background-color: #fff;
+    border-top-color: #fff;
+  }
+  .dropdown .dropdown-menu, .dropup .dropdown-menu {
+    color: $dropdownItemColor;
+    border-radius: 0;
+  }
+  .dropdown-menu .dropdown-item {
+    font-weight: 500;
+    &:active {
+      background-color: #f8f9fa;
+    }
+  }
+
+}
 @include nb-install-component() {
   .toolbar-container {
     .inner-row {
@@ -36,6 +72,14 @@ $dropdownTitleColor:#4DB6EA;
     .presets-bar {
       border: solid 2px #fff;
       .type-dropdown {
+        .dropdown-menu {
+          position: relative !important;
+          .dropdown-item {
+            &.selected {
+              background-color: #f8f9fa;
+            }
+          }
+        }
         .btn.btn-secondary.top-button  {
           display: flex;
           justify-content: flex-start;
@@ -54,37 +98,14 @@ $dropdownTitleColor:#4DB6EA;
   }
   @include nb-for-theme(default) {
 
-      .type-dropdown {
-        position: relative;
-        .btn.btn-secondary.top-button  {
-          width: 100%;
-          color: $dropdownTitleColor;
-
-        }
-
+    .type-dropdown {
+      position: relative;
+      .btn.btn-secondary.top-button  {
+        width: 100%;
+        color: $dropdownTitleColor;
       }
-      button {
-        background-color: #f8f8f8;
-        border-color: #fff !important;
-        .fa {
-          color: #898783;
-        }
-        &.selected {
-          background-color: #ededed;
-          .fa {
-            color: #4c4843;
-          }
-        }
-      }
-      .dropdown .btn-secondary + .dropdown-menu,
-      .dropdown .btn-outline-secondary + .dropdown-menu,
-      .dropup .btn-secondary + .dropdown-menu,
-      .dropup .btn-outline-secondary + .dropdown-menu {
-        background-color: #fff;
-        border-top-color: #fff;
-      }
-      .dropdown .dropdown-menu, .dropup .dropdown-menu {
-        color: #241D52;
-      }
+    }
+    @include button-shared();
+    @include dropdown-shared();
   }
 }

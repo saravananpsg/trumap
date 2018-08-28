@@ -9,6 +9,7 @@ const NUM_OF_ZOOM_LEVELS = 5;
 })
 export class ToolbarComponent {
   @Output() onZoomSelected: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onLegendSelected: EventEmitter<any> = new EventEmitter<any>();
   protected zoomActions: any = [{
     name: 'Plus',
     icon: 'plus',
@@ -59,22 +60,13 @@ export class ToolbarComponent {
     zoomLevel: 0
   }];
   public presets:any = [
-    {
-      name: 'International student'
-    }, {
-      name: 'Couples'
-    },
-    {
-      name: 'Parents'
-    },
-    {
-      name: 'Foreigners'
-    },
-    {
-      name: 'Permanent Residents'
-    }
+    { name: 'International student', value: 'int_student' },
+    { name: 'Couples', value: 'couples' },
+    { name: 'Parents', value: 'parents' },
+    { name: 'Foreigners', value: 'foreigners' },
+    { name: 'Permanent Residents', value: 'perm_residents' }
   ];
-
+  protected selectedPreset = this.presets[0];
   protected selectedZoomAction = 'street';
   protected zoomLevels: any = {
     currentZoomLevel:(MIN_ZOOM * NUM_OF_ZOOM_LEVELS), // 2nd highest zoomlevel
@@ -116,5 +108,9 @@ export class ToolbarComponent {
         this.setZoomLevel(zoomAction);
         break;
     }
+  }
+
+  legendsSelected(legends) {
+    this.onLegendSelected.emit(legends);
   }
 }

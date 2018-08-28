@@ -10,11 +10,11 @@
       <label></label>
       <div class="dropdown" ngbDropdown>
         <button class="btn btn-secondary" type="button" ngbDropdownToggle>
-          {{txTypes[0]?.name}}
+          {{filterMap['txType'].name}}
         </button>
         <ul class="dropdown-menu" ngbDropdownMenu>
           <li class="dropdown-item" *ngFor="let txType of txTypes"
-            (click)="filterMap['txType']=txType.value">
+            (click)="filterMap['txType']=txType">
             {{txType.name}}
           </li>
         </ul>
@@ -25,11 +25,11 @@
       <label>TYPE</label>
       <div class="dropdown" ngbDropdown>
         <button class="btn btn-secondary" type="button" ngbDropdownToggle>
-          {{listingTypes[0]?.name}}
+          {{filterMap['listingType'].name}}
         </button>
         <ul class="dropdown-menu" ngbDropdownMenu>
           <li class="dropdown-item" *ngFor="let listingType of listingTypes"
-            (click)="filterMap['listingType']=listingType.value">
+            (click)="filterMap['listingType']=listingType">
             {{listingType.name}}
           </li>
         </ul>
@@ -39,11 +39,11 @@
       <label>SIZE</label>
       <div class="dropdown" ngbDropdown>
         <button class="btn btn-secondary" type="button" ngbDropdownToggle>
-          {{sizeTypes[0]?.name}}
+          {{filterMap['sizeType'].name}}
         </button>
         <ul class="dropdown-menu" ngbDropdownMenu>
           <li class="dropdown-item" *ngFor="let sizeType of sizeTypes"
-            (click)="filterMap['sizeType']=sizeType.value">
+            (click)="filterMap['sizeType']=sizeType">
             {{sizeType.name}}
           </li>
         </ul>
@@ -61,11 +61,11 @@
       <label>LENGTH OF STAY</label>
       <div class="dropdown" ngbDropdown>
         <button class="btn btn-secondary" type="button" ngbDropdownToggle>
-          {{stayLengthTypes[0]?.name}}
+          {{filterMap['stayLengthType'].name}}
         </button>
         <ul class="dropdown-menu" ngbDropdownMenu>
           <li class="dropdown-item" *ngFor="let stayLength of stayLengthTypes"
-            (click)="filterMap['stayLengthType']=stayLength.value">
+            (click)="filterMap['stayLengthType']=stayLength">
             {{stayLength.name}}
           </li>
         </ul>
