@@ -81,15 +81,25 @@ function parseRentConversation(message) {
     timestamp: Date.now(),
     username: adminUserName,
     data: {
-      type: 'presets',
-      text: 'Great'
+      type: 'basic',
+      text: 'I\'m still being trained to help you with that :)',
     }
   };
   return [newMessage];
 }
 
 function parseDefaultConversation(message) {
-  return parseStartConversation(message);
+  //return parseStartConversation(message);
+  const newMessage = {
+    type: 'message',
+    timestamp: Date.now(),
+    username: adminUserName,
+    data: {
+      type: 'basic',
+      text: 'I\'m still being trained to help you with that :)',
+    }
+  };
+  return [newMessage];
 }
 
 const conversationParser = {
@@ -102,7 +112,7 @@ const conversationParser = {
 function getConversationTypeForMessage(message) {
   const data = message.data.text;
   if (data.match(/(hi|hello|hell|hey)/gi)) {
-    return 'start';
+    return 'default';
   }
 
   if (data.match(/(buy|Buy)/gi)) {
