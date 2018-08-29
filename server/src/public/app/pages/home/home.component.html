@@ -22,10 +22,13 @@
     <mgl-geojson-source *ngFor="let source of geoSources"
       [id]="source.id"
       [data]="source.listings"
+      [cluster]="true"
+      [clusterMaxZoom]="12"
+      [clusterRadius]="50"
       >
     </mgl-geojson-source>
 
-    <mgl-layer *ngFor="let source of geoSources"
+    <!--<mgl-layer *ngFor="let source of geoSources"
       [id]="source.id"
       [source]="source.id"
       type="symbol"
@@ -34,26 +37,60 @@
       (mouseEnter)="cursorStyle = 'pointer'"
       (mouseLeave)="cursorStyle = ''"
     >
-    </mgl-layer>
-    <!-- <mgl-geojson-source
-      id="listings"
-      [data]="geoListings">
-    </mgl-geojson-source> -->
+  </mgl-layer>-->
 
-    <!-- <mgl-layer
-      id="listings-custom"
-      source="listings"
-      type="symbol"
-      [layout]="{
-        'icon-image': '{icon}-15',
-        'icon-allow-overlap': true,
-        'visibility': 'visible'
-      }"
-      (click)="onClick($event)"
-      (mouseEnter)="cursorStyle = 'pointer'"
-      (mouseLeave)="cursorStyle = ''"
+
+    <mgl-layer *ngFor="let source of geoSources"
+        [id]="source.id + '-cluster'"
+        type="circle"
+        [source]="source.id"
+        [filter]="['has', 'point_count']"
+        [paint]="{
+          'circle-color': {
+              property: 'point_count',
+              type: 'interval',
+              stops: [
+                  [0, '#51bbd6'],
+                  [100, '#f1f075'],
+                  [750, '#f28cb1']
+              ]
+          },
+          'circle-radius': {
+              property: 'point_count',
+              type: 'interval',
+              stops: [
+                  [0, 20],
+                  [100, 30],
+                  [750, 40]
+              ]
+          }
+        }"
+      ></mgl-layer>
+      <mgl-layer *ngFor="let source of geoSources"
+        [id]="source.id + '-unclustered-point'"
+        type="symbol"
+        [source]="source.id"
+        [filter]="['!has', 'point_count']"
+        [layout]="source.layout"
+        (click)="onClick($event)"
+        (mouseEnter)="cursorStyle = 'pointer'"
+        (mouseLeave)="cursorStyle = ''"
       >
-    </mgl-layer>-->
+      </mgl-layer>
+      <mgl-layer  *ngFor="let source of geoSources"
+        [id]="source.id + '-cluster-count'"
+        type="symbol"
+        [source]="source.id"
+        [filter]="['has', 'point_count']"
+        [layout]="{
+        'text-field': '{point_count}',
+        'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+        'text-size': 12
+        }"
+      >
+      </mgl-layer>
+
+
     <mgl-popup
       *ngIf="selectedPoint"
       [lngLat]="selectedPoint.geometry?.coordinates">
@@ -61,81 +98,6 @@
         [innerHTML]="selectedPoint.properties?.description">
       </div>
     </mgl-popup>
-
-    <!--<mgl-geojson-source
-      id="listings"
-      [data]="geoJSONListings?.data"
-      [cluster]="true"
-      [clusterMaxZoom]="19"
-      [clusterRadius]="5">
-    </mgl-geojson-source>
-
-    <mgl-layer
-      id="non-cluster-markers"
-      type="symbol"
-      [source]="geoJSONListings"
-      [layout]="{
-        'icon-image': 'marker-15'
-      }"
-      [paint]="{}"
-      interactive="true"
-      >
-    </mgl-layer>
-
-
-    <mgl-layer
-      id="cluster-low"
-      type="circle"
-      [source]="geoJSONListings"
-      [filter]="['<', 'point_count', 5]"
-      [paint]="{
-        'circle-color': '#1a9641',
-        'circle-radius': 18
-      }"
-      interactive="true"
-      >
-    </mgl-layer>
-
-    <mgl-layer
-      id="cluster-medium"
-      type="circle"
-      [source]="geoJSONListings"
-      [filter]=" [
-        'all',
-          ['>', 'point_count', 15],
-          ['<=', 'point_count', 75]
-      ]"
-      [layout]="{}"
-      [paint]="{
-        'circle-color': '#ffffbf',
-        'circle-radius': 18
-      }"
-      interactive="true"
-      >
-    </mgl-layer>
-
-
-
-    <mgl-layer
-      id="cluster-high"
-      type="circle"
-      [source]="geoJSONListings"
-      [filter]="['>', 'point_count', 75]"
-      [paint]="{
-        'circle-color': '#fc8d59',
-        'circle-radius': 18
-      }"
-      interactive="true"
-      >
-    </mgl-layer>
-
-    <mgl-layer
-      id="cluster-count"
-      type="symbol"
-      [source]="geoJSONListings"
-      interactive="true"
-      >
-    </mgl-layer>-->
   </mgl-map>
 
 

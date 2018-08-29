@@ -27,6 +27,7 @@ $dropdownItemColor: #241D52;
   .dropdown .dropdown-menu, .dropup .dropdown-menu {
     color: $dropdownItemColor;
     border-radius: 0;
+    z-index: 2;
   }
   .dropdown-menu .dropdown-item {
     font-weight: 500;
