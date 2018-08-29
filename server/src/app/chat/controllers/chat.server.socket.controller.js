@@ -76,6 +76,7 @@ function getDefaultConversation(message) {
     data: {
       type: 'basic',
       text: 'I\'m still being trained to help you with that :)',
+      value: 'to_be_trained'
     }
   };
   return [newMessage];
@@ -200,14 +201,15 @@ function chatParser(message) {
 }
 
 function controlParser(message) {
-
   let newMessages = [];
   switch(message.data.command) {
     case 'startConversation':
-      newMessages = newMessages.concat(getStartConversation());
-    break;
+      newMessages = getStartConversation();
+      break;
+    case 'failedAction':
+    newMessages = getContactConversation();
     default:
-    break
+      break
   }
   return newMessages;
 }
