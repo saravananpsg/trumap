@@ -1,6 +1,6 @@
 <div class="listing-component" >
   <div class="listing-filter-holder" [ngClass]="{'selected': (!!selectedListing)}">
-    <ngx-listing-filter [count]="listings[0]?.totalcount"
+    <ngx-listing-filter [count]="listings?.length"
       (onSelectFilter)="onSelectFilter($event)">
     </ngx-listing-filter>
   </div>

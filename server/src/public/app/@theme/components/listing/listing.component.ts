@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, Input, AfterViewInit, HostListener, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, AfterViewInit, HostListener, EventEmitter, OnDestroy } from '@angular/core';
 import { ChangeEvent } from 'angular2-virtual-scroll';
 import { NGXLogger } from 'ngx-logger';
 import { Listings } from '../../../providers/listings/listings';
@@ -10,36 +10,38 @@ const LIMIT = 20;
   templateUrl: './listing.component.html',
   styleUrls: ['./listing.component.scss'],
 })
-export class ListingComponent implements AfterViewInit {
+export class ListingComponent implements AfterViewInit, OnDestroy {
   protected listings: any = [];
   protected loading = false;
   protected error = '';
   protected selectedListing: any;
   protected selectToUnselect = false;
+  protected defaultListingType = 'voluntary_welfare';
   @Output() onAddListings: EventEmitter<any> = new EventEmitter<any>();
-  constructor(private logger: NGXLogger, private listingsService: Listings){}
-
-  private initListings() {
-    for (let index = 0; index < 20; index++) {
-      this.listings.push({
-        name: `Listing ${index}`,
-        url: `https://picsum.photos/300/300/?random=${index}`,
-        status: 'visited',
-        liked: ((index % 2) === 0)
-      })
-    }
+  constructor(private logger: NGXLogger, private listingsService: Listings){
+    this.listingsService.getDataNotification().subscribe((listingType) => {
+      (listingType === this.defaultListingType) ?
+        this.listings = this.listingsService.getData(listingType) : null;
+    });
+    this.listingsService.getErrorNotification().subscribe((err) => {
+      this.logger.error('ListingsComponentError:', err);
+    });
   }
 
   ngAfterViewInit() {
-    // this.initListings();
     this.load();
     console.log('Listing: In Init');
+  }
+
+  ngOnDestroy() {
+    this.listingsService.getDataNotification().unsubscribe();
+    this.listingsService.getErrorNotification().unsubscribe();
   }
 
   protected fetchMore(event: ChangeEvent) {
     if( event.end < 0) return;
     if (event.end !== this.listings.length-1) return;
-    console.log('FetchMore:', event);
+    // console.log('FetchMore:', event);
     this.loading = true;
     this.fetchNextChunk(this.listings.length, LIMIT);
   }
@@ -49,8 +51,8 @@ export class ListingComponent implements AfterViewInit {
   }
 
   protected load(filter = { offset: 0, limit: LIMIT }): void {
-    //return
-    this.listingsService.vwListings(filter).subscribe(data => {
+    this.listingsService.loadListings(this.defaultListingType, filter);
+    /*this.listingsService.vwListings(filter).subscribe(data => {
           const listingsData: any = data;
           let newIndex = filter.offset + 1;
 
@@ -59,7 +61,8 @@ export class ListingComponent implements AfterViewInit {
             newIndex++;
           });
           this.listings = this.listings.concat(listingsData);
-          this.onAddListings.emit(listingsData);
+          const listingSource = { type: 'voluntary_welfare', listings: this.listings};
+          this.onAddListings.emit(listingSource);
           this.logger.debug('Listings Data:', this.listings);
           //this.listings = this.listings.concat(this.listings.slice(0, 19));
           this.loading = false;
@@ -67,6 +70,7 @@ export class ListingComponent implements AfterViewInit {
           this.error = `Error in loading data`;
           this.logger.debug('Listings:Error', err);
     });
+    */
   }
 
   protected toggleSelectListing(listing): void {

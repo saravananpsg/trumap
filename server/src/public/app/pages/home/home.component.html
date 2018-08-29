@@ -19,24 +19,41 @@
     [cursorStyle]="cursorStyle"
   >
 
-    <mgl-geojson-source
-      id="listings"
-      [data]="geoListings">
+    <mgl-geojson-source *ngFor="let source of geoSources"
+      [id]="source.id"
+      [data]="source.listings"
+      >
     </mgl-geojson-source>
 
-    <mgl-layer
+    <mgl-layer *ngFor="let source of geoSources"
+      [id]="source.id"
+      [source]="source.id"
+      type="symbol"
+      [layout]="source.layout"
+      (click)="onClick($event)"
+      (mouseEnter)="cursorStyle = 'pointer'"
+      (mouseLeave)="cursorStyle = ''"
+    >
+    </mgl-layer>
+    <!-- <mgl-geojson-source
+      id="listings"
+      [data]="geoListings">
+    </mgl-geojson-source> -->
+
+    <!-- <mgl-layer
       id="listings-custom"
       source="listings"
       type="symbol"
       [layout]="{
         'icon-image': '{icon}-15',
-        'icon-allow-overlap': true
+        'icon-allow-overlap': true,
+        'visibility': 'visible'
       }"
       (click)="onClick($event)"
       (mouseEnter)="cursorStyle = 'pointer'"
       (mouseLeave)="cursorStyle = ''"
       >
-    </mgl-layer>
+    </mgl-layer>-->
     <mgl-popup
       *ngIf="selectedPoint"
       [lngLat]="selectedPoint.geometry?.coordinates">

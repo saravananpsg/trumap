@@ -5,9 +5,9 @@
       Show Legend
     </button>
     <ul class="dropdown-holder dropdown-menu" *ngIf="showDropdown"
-      [ngClass]="{'show': showDropdown}">
+      [ngClass]="{'show': showDropdown}" >
       <li class="dropdown-item" *ngFor="let legend of legends"
-        (click)="toggleLegendFilter(legend)">
+        (click)="toggleLegendFilter($event,legend)">
         <nb-checkbox [value]="legendFilter[legend.value] || false">
           {{legend.name}}
         </nb-checkbox>

@@ -9,6 +9,7 @@ export * from './auth/reset-password/reset.password.component';
 export * from './modal/download.modal.component';
 export * from './toolbar/toolbar.component';
 export * from './toolbar/legend/legend.component';
+export * from './toolbar/legend/legend.constants';
 export * from './listing/listing.component';
 export * from './listing/listing-filter/listing-filter.component';
 export * from './listing/listing-tile/listing-tile.component';

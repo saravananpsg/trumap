@@ -65,7 +65,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
     LoggerModule.forRoot({serverLoggingUrl: '/api/logs', level: NgxLoggerLevel.DEBUG,
-      serverLogLevel: NgxLoggerLevel.ERROR}),
+      serverLogLevel: NgxLoggerLevel.OFF}),
     PerfectScrollbarModule,
     LazyLoadImageModule,
     SocketIoModule.forRoot(socketConfig),

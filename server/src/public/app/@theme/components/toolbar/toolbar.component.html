@@ -6,10 +6,10 @@
     flex-justify-center inner-row">
     <div class="btn-group zoom-bar">
       <button type="button" class="btn btn-secondary"
-        [ngClass]="{'selected': zoomLevels.currentZoomLevel === zoomAction.zoomLevel}"
-        *ngFor="let zoomAction of zoomActions"
+        [ngClass]="{'selected': zoomLevels.currentZoomIndex === i}"
+        *ngFor="let zoomAction of zoomActions; let i = index"
         [disabled]="zoomAction.isDisabled"
-        (click)="selectZoomAction(zoomAction)">
+        (click)="selectZoomAction(zoomAction, i)">
         <i class="fa fa-{{zoomAction?.icon}}"  placement="top"
         ngbTooltip="{{zoomAction.tooltip}}"></i>
       </button>
@@ -59,7 +59,7 @@
           </div>
         </div>-->
         <div class="legend-dropdown">
-          <ngx-toolbar-legend (onLegedSelected)="legendsSelected($event)">
+          <ngx-toolbar-legend (onLegendSelected)="legendsSelected($event)">
           </ngx-toolbar-legend>
         </div>
       </div>
