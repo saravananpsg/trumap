@@ -4,22 +4,6 @@ db = require(path.resolve('./src/config/lib/sequelize'));
 
 const adminUserName = 'TruExpert';
 
-function getStartConversation() {
-  return parseStartConversation();
-};
-
-function getSalutationConversation() {
-  const newMessage = {
-    type: 'message',
-    timestamp: Date.now(),
-    username: adminUserName,
-    data: {
-      type: 'basic',
-      text: 'Hello',
-    }
-  };
-  return [newMessage];
-};
 
 function connectParser(message) {
   const newMessage = {
@@ -46,36 +30,45 @@ function disconnectParser(message) {
   return [newMessage];
 }
 
-
-function parseStartConversation(message) {
+function getStartConversation() {
   const newMessage = {
     type: 'message',
     timestamp: Date.now(),
     username: adminUserName,
     data: {
-      type: 'presets',
-      text: 'Are you looking to buy or rent a property?',
-      actions: [{ name: 'Buy' }, { name: 'Rent' }]
+      type: 'basic',
+      text: 'Hello!',
     }
   };
-  return [newMessage];
-}
-
-function parseBuyConversation(message) {
-  const newMessage = {
+  const newMessage1 = {
+    type: 'message',
+    timestamp: Date.now(),
+    username: adminUserName,
+    data: {
+      type: 'basic',
+      text: 'Welcome to Trumap, and thank you for visiting our site.'
+    }
+  };
+  const newMessage2 = {
     type: 'message',
     timestamp: Date.now(),
     username: adminUserName,
     data: {
       type: 'presets',
-      text: 'I\'m still being trained to help you with that :)',
-      actions: [{ name: 'All right, let\'s look at rentals' }]
+      text: 'What sort of rental listings would you like to look at?',
+      actions: [{ name: 'Rentals for international students' },
+        { name: 'Rentals for couples' },
+        { name: 'Rentals for parents'},
+        { name: 'Rentals for foreign workers'},
+        { name: 'Rentals for PRs'}
+      ]
     }
   };
-  return [newMessage];
-}
+  return [newMessage, newMessage1, newMessage2];
+};
 
-function parseRentConversation(message) {
+
+function getDefaultConversation(message) {
   const newMessage = {
     type: 'message',
     timestamp: Date.now(),
@@ -88,30 +81,74 @@ function parseRentConversation(message) {
   return [newMessage];
 }
 
-function parseDefaultConversation(message) {
-  //return parseStartConversation(message);
+function getFilterConversation(message) {
+  const newMessage = {
+    type: 'message',
+    timestamp: Date.now(),
+    username: adminUserName,
+    data: {
+      type: 'presets',
+      text: 'This will update the map filters, are you sure you want to continue',
+      actions: [{ name: 'Sure, go ahead' },
+        { name: 'Maybe later' },
+      ]
+    }
+  }
+  return [newMessage];
+}
+
+function getFilterConfirmConversation(message) {
   const newMessage = {
     type: 'message',
     timestamp: Date.now(),
     username: adminUserName,
     data: {
       type: 'basic',
-      text: 'I\'m still being trained to help you with that :)',
+      text: `I\'ve updated the map filters with nearby amenities which I feel
+        are the most suitable for Rentals for international students`,
     }
-  };
+  }
+  return [newMessage];
+}
+
+function getContactConversation(message) {
+  const newMessage = {
+    type: 'message',
+    timestamp: Date.now(),
+    username: adminUserName,
+    data: {
+      type: 'basic',
+      text: `If you'd rather speak with an agent directly, you can reach us by
+        email at team@truuue.com, or by phone at (+65) 6591 8842/ (+65) 8204 2356 `,
+    }
+  }
   return [newMessage];
 }
 
 const conversationParser = {
-  start: parseStartConversation,
-  buy: parseBuyConversation,
-  rent: parseRentConversation,
-  default: parseDefaultConversation
+  filter: getFilterConversation,
+  'filter-confirm': getFilterConfirmConversation,
+  contact: getContactConversation,
+  default: getDefaultConversation
 };
 
 function getConversationTypeForMessage(message) {
   const data = message.data.text;
-  if (data.match(/(hi|hello|hell|hey)/gi)) {
+  let conversationType = 'default';
+  switch (data) {
+    case 'Rentals for international students':
+      conversationType = 'filter';
+      break;
+    case 'Sure, go ahead':
+      conversationType = 'filter-confirm';
+      break;
+    case 'Maybe later':
+      conversationType = 'contact';
+      break;
+    default:
+      conversationType = 'default';
+  }
+  /*if (data.match(/(hi|hello|hell|hey)/gi)) {
     return 'default';
   }
 
@@ -121,9 +158,9 @@ function getConversationTypeForMessage(message) {
 
   if (data.match(/(rent|rental)/gi)) {
     return 'rent';
-  }
+  }*/
 
-  return 'default';
+  return conversationType;
 }
 
 function chatParser(message) {
@@ -167,7 +204,6 @@ function controlParser(message) {
   let newMessages = [];
   switch(message.data.command) {
     case 'startConversation':
-      newMessages = newMessages.concat(getSalutationConversation());
       newMessages = newMessages.concat(getStartConversation());
     break;
     default:
