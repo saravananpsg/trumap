@@ -1,26 +1,78 @@
-import { Component, OnInit, HostListener, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import * as firebaseApp from 'firebase/app';
 import * as geofirex from 'geofirex';
 import { MapMouseEvent } from 'mapbox-gl';
-
+import { Listings } from '../../providers/listings/listings';
+import { NGXLogger } from 'ngx-logger';
+import { Legends } from '../../@theme/components';
+import * as alertify from 'alertify.js';
+const iconMap: any = Legends.reduce((accumulator, legend) => {
+  accumulator[legend.value] = legend;
+  return accumulator;
+}, {});
+/*const iconMap = {
+  'aed_locations': 'rocket',
+  'axs_stations': 'rail-metro',
+  'child_care': 'ice-cream',
+  'community_clubs': 'golf',
+  'constituency_offices': 'information',
+  'disability_care': 'doctor',
+  'elder_care': 'lodging',
+  'hawker_centres': 'fast-food',
+  'historic_sites': 'monument',
+  'hospitals': 'hospital',
+  'hotels': 'restaurant',
+  'kinder_gardens': 'playground',
+  'libraries': 'library',
+  'money_xchanger': 'stadium',
+  'museum': 'museum',
+  'nursing_home': 'garden',
+  'pharmacy': 'pharmacy',
+  'preschools': 'zoo',
+  'private_inst': 'college',
+  'remittance': 'town-hall',
+  'schools': 'school',
+  'student_care': 'triangle',
+  'super_market': 'grocery',
+  'train_station_names': 'rail-metro',
+  'voluntary_welfare': 'star'
+}*/
 @Component({
   selector: 'page-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('mapbox') mapbox: any;
   geo = geofirex.init(firebaseApp);
   points: Observable<any>;
   radius = new BehaviorSubject(0.5);
   selectedPoint: GeoJSON.Feature<GeoJSON.Point> | null;
-  geoListings: GeoJSON.FeatureCollection<GeoJSON.Point> = {
-    type: 'FeatureCollection',
-    features: []
-  };
-  constructor() {}
+
+  geoSources = [];
+
+  constructor(private listingsService: Listings, private logger: NGXLogger) {
+
+    this.listingsService.getDataNotification().subscribe((listingType) => {
+      if( !listingType ) return;
+      const listingData = this.listingsService.getData(listingType)
+      if (!listingType || !listingData) return;
+      this.addListings(listingData, listingType);
+    });
+
+    this.listingsService.getErrorNotification().subscribe((err) => {
+      if( !err ) return;
+      alertify.error('Error while loading data');
+      this.logger.error('HomeComponentError:', err);
+    });
+  }
+
+  ngOnDestroy() {
+    this.listingsService.getDataNotification().unsubscribe();
+    this.listingsService.getErrorNotification().unsubscribe();
+  }
 
   ngOnInit() {
     const center = this.geo.point(40.5, -80.0);
@@ -39,7 +91,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   changeZoom(zoomLevel) {
     (this.mapbox.mapInstance) ?
-      this.mapbox.mapInstance.zoomTo(this.mapbox.mapInstance.getZoom() + zoomLevel)
+      //this.mapbox.mapInstance.zoomTo(this.mapbox.mapInstance.getZoom() + zoomLevel)
+      this.mapbox.mapInstance.zoomTo(zoomLevel)
       : null;
   }
 
@@ -48,7 +101,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.radius.next(v);
   }
 
-  addListings(listings) {
+  addListings(listings, listingType) {
+    let geoListings: GeoJSON.FeatureCollection<GeoJSON.Point> = {
+      type: 'FeatureCollection',
+      features: []
+    };
     listings.forEach((listing) => {
       const featureObj: any = {
         type: 'Feature',
@@ -58,15 +115,33 @@ export class HomeComponent implements OnInit, AfterViewInit {
         },
         properties: {
           title: listing.name,
-          description: `<br><h6>${listing.name}</h6>
-            <label>${listing.building_name}</label>`,
-          icon: 'star'
+          description: `<br><h6>${listing.name || listing.description ||
+            'Unknown'}</h6>`,
+          icon: iconMap[listingType].icon || 'monument',
         }
       };
-      this.geoListings.features.push(featureObj);
+      geoListings.features.push(featureObj);
     });
-    console.log('GEOJSON:', this.geoListings);
-    this.geoListings = { ...this.geoListings };
+    this.logger.debug('HomeComponent:GeoJSON', geoListings);
+    const source = {
+      id: listingType,
+      listings: geoListings,
+      layout: {
+        'icon-image': '{icon}-15',
+        'icon-allow-overlap': true,
+        visibility: 'visible'
+      }
+    }
+    let isGeoSourceAlreadyAvailable = false;
+    for(let index = 0; index < this.geoSources.length; index++) {
+      if(this.geoSources[index].id === listingType) {
+        this.geoSources[index].listings = source.listings;
+        isGeoSourceAlreadyAvailable = true;
+        break;
+      }
+    }
+    (!isGeoSourceAlreadyAvailable) ?
+      this.geoSources = this.geoSources.concat([source]) : null;
   }
 
   initMapListingsLayer() {
@@ -152,5 +227,26 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   onClick(evt: MapMouseEvent) {
     this.selectedPoint = (<any>evt).features[0];
+  }
+
+  changeMapLayers(legendFilter: any) {
+    this.logger.debug('HomeComponent:ChangeMapLayers:LegendFilter:', legendFilter);
+    if(!legendFilter) return;
+    for (let index = 0; index < this.geoSources.length; index++) {
+      const source = this.geoSources[index];
+      let layout = source.layout;
+
+      if(legendFilter[source.id] && (layout.visibility !== 'visible')) {
+        layout.visibility = 'visible';
+        source.layout = { ...layout};
+      } else if (!legendFilter[source.id] && (layout.visibility !== 'none')){
+        layout.visibility = 'none';
+        source.layout = { ...layout};
+      }
+    }
+
+    Object.keys(legendFilter).forEach((legend) => {
+      if(legend) this.listingsService.loadListings(legend);
+    });
   }
 }

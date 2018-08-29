@@ -6,5 +6,7 @@ module.exports = function (app) {
   app.route('/api/listings/uralistings').get(listings.uraListings);
   app.route('/api/listings/voluntarywelfarelistings')
       .get(listings.voluntaryWelfareList);
+  app.route('/api/listings/type/:listingType')
+      .get(listings.listings);
 
 };
