@@ -65,6 +65,7 @@
               ]
           }
         }"
+        [layout]="{visibility: source.layout.visibility}"
       ></mgl-layer>
       <mgl-layer *ngFor="let source of geoSources"
         [id]="source.id + '-unclustered-point'"
@@ -85,7 +86,8 @@
         [layout]="{
         'text-field': '{point_count}',
         'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-        'text-size': 12
+        'text-size': 12,
+        'visibility': source.layout.visibility
         }"
       >
       </mgl-layer>
