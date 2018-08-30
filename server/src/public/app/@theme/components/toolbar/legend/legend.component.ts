@@ -9,9 +9,7 @@ export class LegendComponent {
   @Output() onLegendSelected: EventEmitter<any> = new EventEmitter<any>();
   protected showDropDown = false;
   readonly legends = Legends;
-  protected legendFilter = {
-    voluntary_welfare: true
-  };
+  protected legendFilter = {};
 
   protected toggleLegendFilter($event: any, legend: any) {
     // $event.stopImmediatePropagation();

@@ -1,13 +1,16 @@
 <div class="listing-component" >
   <div class="listing-filter-holder" [ngClass]="{'selected': (!!selectedListing)}">
-    <ngx-listing-filter [count]="listings?.length"
+    <!--<ngx-listing-filter [count]="listings?.length"
+      (onSelectFilter)="onSelectFilter($event)">
+    </ngx-listing-filter>-->
+    <ngx-listing-filter [count]="(truListings.truData | async).total_count"
       (onSelectFilter)="onSelectFilter($event)">
     </ngx-listing-filter>
   </div>
   <div class="listing-holder flex">
     <virtual-scroll
       [horizontal]="true"
-      [items]="listings"
+      [items]="(truListings.truData | async).data"
       (update)="scrollItems = $event"
       (change)="indices = $event"
       (end)="fetchMore($event)"

@@ -47,7 +47,7 @@ import {
   ChatComponent,
   ChatMessageComponent,
 } from './components';
-import { CapitalizePipe, PluralPipe, RoundPipe, TimingPipe } from './pipes';
+import { CapitalizePipe, PluralPipe, RoundPipe, TimingPipe, ListingPipe } from './pipes';
 import {
   SampleLayoutComponent,
 } from './layouts';
@@ -101,6 +101,7 @@ const PIPES = [
   PluralPipe,
   RoundPipe,
   TimingPipe,
+  ListingPipe
 ];
 
 const entryComponents = [DownloadModalComponent];

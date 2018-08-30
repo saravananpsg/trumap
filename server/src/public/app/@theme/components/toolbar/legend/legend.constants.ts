@@ -23,5 +23,6 @@ export const Legends = [
   { name: 'Student Care', value: 'student_care', icon: 'triangle' },
   { name: 'Supermarket', value: 'super_market', icon: 'grocery' },
   { name: 'Train Stations', value: 'train_station_names', icon: 'rail-metro' },
-  { name: 'Voluntary Welfare', value: 'voluntary_welfare', icon: 'star' }
+  { name: 'Voluntary Welfare', value: 'voluntary_welfare', icon: 'star' },
+  { name: 'TruListing', value: 'trulisting', icon: 'castle'}
 ];
