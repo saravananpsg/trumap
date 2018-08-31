@@ -25,6 +25,11 @@ module.exports = {
       apiUrl: 'https://staging2.truuue.com/api/v1/zuulin/listings/search'
     }
   },
+  analytics: {
+    chat: {
+      apiUrl: 'http://localhost:5000/chat/messages'
+    }
+  },
   seed: {
     data: {
       user: {

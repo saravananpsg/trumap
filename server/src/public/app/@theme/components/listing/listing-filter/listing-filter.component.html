@@ -6,7 +6,7 @@
     </div>
   </div>
   <div class="filter-holder flex  flex-justify-center">
-    <div class="filter-item tx-type-container">
+    <!--<div class="filter-item tx-type-container">
       <label></label>
       <div class="dropdown" ngbDropdown>
         <button class="btn btn-secondary" type="button" ngbDropdownToggle>
@@ -20,7 +20,15 @@
         </ul>
       </div>
     </div>
-    <div class="divider"></div>
+    <div class="divider"></div>-->
+    <div class="location-type-container filter-item">
+      <label></label>
+      <div class="input-group">
+        <input type="text" class="form-control" [(ngModel)]="filterMap['location']"
+          placeholder="Location">
+        <i class="ion-search"></i>
+      </div>
+    </div>
     <div class="listing-type-container filter-item">
       <label>TYPE</label>
       <div class="dropdown" ngbDropdown>
@@ -49,13 +57,19 @@
         </ul>
       </div>
     </div>
-    <div class="move-in-type-container filter-item">
-      <label>MOVE IN DATE</label>
-      <input #dp="ngbDatepicker" class="form-control" ngbDatepicker
-        [(ngModel)]="moveInDate" (focus)="dp.open()"/>
-      <!--<ngb-datepicker #dp [(ngModel)]="dateModel">
-      </ngb-datepicker>-->
-      <i class="fa fa-circle"></i>
+    <div class="budget-type-container filter-item">
+      <label>BUDGET</label>
+      <div class="dropdown" ngbDropdown>
+        <button class="btn btn-secondary" type="button" ngbDropdownToggle>
+          {{filterMap['budgetType'].name}}
+        </button>
+        <ul class="dropdown-menu" ngbDropdownMenu>
+          <li class="dropdown-item" *ngFor="let budgetType of budgetTypes"
+            (click)="filterMap['budgetType']=budgetType">
+            {{budgetType.name}}
+          </li>
+        </ul>
+      </div>
     </div>
     <div class="stay-length-type-container filter-item">
       <label>LENGTH OF STAY</label>
@@ -71,17 +85,17 @@
         </ul>
       </div>
     </div>
-    <div class="location-type-container filter-item">
-      <label></label>
-      <div class="input-group">
-        <input type="text" class="form-control" [(ngModel)]="filterMap['location']"
-          placeholder="Location">
-        <i class="ion-search"></i>
-      </div>
+    <div class="move-in-type-container filter-item">
+      <label>MOVE IN DATE</label>
+      <input #dp="ngbDatepicker" class="form-control" ngbDatepicker
+        [(ngModel)]="moveInDate" (focus)="dp.open()"/>
+      <!--<ngb-datepicker #dp [(ngModel)]="dateModel">
+      </ngb-datepicker>-->
+      <i class="fa fa-circle"></i>
     </div>
-    <div class="all-filters-container filter-item flex flex-align-center
+    <!-- <div class="all-filters-container filter-item flex flex-align-center
       flex-justify-center">
       <h6>All Filters</h6>
-    </div>
+    </div> -->
   </div>
 </div>

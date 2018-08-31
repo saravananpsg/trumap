@@ -20,9 +20,9 @@
       display: inline-flex;
       justify-content: center;
       margin: 1rem 1rem 0.5rem 1rem;
-      padding: 1rem 1rem;
-      border: solid 1px;
+      padding: 0.6rem 1rem;
       border-radius: 8px;
+      background-color: #EFEFEF;
       &.basic-preset {
         background-color: #CAE9F8;
         border: 0;
@@ -43,7 +43,7 @@
       li {
         z-index: 1;
         height: 3rem;
-        border-bottom: solid 1px;
+        border-bottom: solid 1px #ccc;
         &.title {
           padding: 0 1rem;
         }

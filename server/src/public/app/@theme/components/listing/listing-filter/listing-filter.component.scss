@@ -99,6 +99,14 @@
           }
         }
       }
+
+      .budget-type-container {
+        .dropdown {
+          .dropdown-menu {
+            top: -76px !important;
+          }
+        }
+      }
       .move-in-type-container {
         position: relative;
         ::ng-deep ngb-datepicker {

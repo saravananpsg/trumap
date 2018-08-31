@@ -1,6 +1,6 @@
 'use strict';
-var path = require('path'),
-db = require(path.resolve('./src/config/lib/sequelize'));
+
+var chatUtil = require('./chat.server.util.controller');
 
 const adminUserName = 'TruExpert';
 
@@ -206,15 +206,7 @@ function getConversationTypeForMessage(message) {
 }
 
 function chatParser(message) {
-  db.Conversation.create(({
-    ipaddress: message.remoteAddress,
-    sessionId: message.sessionId,
-    message: message
-  }))
-  .catch((err) => {
-    console.log('Conversation Insert Error:', err);
-  });
-
+  chatUtil.publishToExternalSources(message);
   const conversationType = getConversationTypeForMessage(message);
 
   const newMessages = conversationParser[conversationType](message);

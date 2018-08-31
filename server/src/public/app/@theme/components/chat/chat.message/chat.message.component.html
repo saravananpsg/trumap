@@ -54,9 +54,7 @@
             </div>
         </button>
       </div>
-      <!--<textarea rows="1" autosize [(ngModel)]="chatMessageText"
-        class="form-control" placeholder="Type your reply here">
-      </textarea>-->
+
       <input class="form-control" placeholder="Type your reply here"
         [(ngModel)]="chatMessageText" type="text" #chatMessageInput
         (keyup.enter)="sendMessage(chatMessageText)"
