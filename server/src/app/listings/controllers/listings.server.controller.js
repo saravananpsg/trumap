@@ -81,9 +81,9 @@ exports.truexpert = function(req, res) {
   const timestamp = Math.round(Date.now()/1000);
   //searchApi = `${searchApi}/?truexpert=1&timestamp=${timestamp}`;
   const signature = generateSignature(timestamp, secret);
-  //searchApi = `${searchApi}&signature=${signature}&${queryParmsStr}`;
-  console.log('Timestamp:', timestamp, ' Signature:', signature);
-  console.log('SearchAPI:', searchApi);
+  // searchApi = `${searchApi}&signature=${signature}&${queryParmsStr}`;
+  // console.log('Timestamp:', timestamp, ' Signature:', signature);
+  // console.log('SearchAPI:', searchApi);
   const query = Object.assign({}, req.query);
   query.truexpert = 1;
   query.timestamp = timestamp;

@@ -38,6 +38,11 @@ export class ListingFilterComponent {
     { name: '36 months', value: '36 months'}
   ];
 
+  protected budgetTypes = [
+    { name: '$500-$2000', value: '500-2000' },
+    { name: '$2000-$5000', value: '2000-5000'},
+  ];
+
   protected onFilter() {
     this.onSelectFilter.emit(this.filterMap)
   }
@@ -54,6 +59,7 @@ export class ListingFilterComponent {
     this.filterMap['sizeType'] = this.sizeTypes[0];
     this.filterMap['stayLengthType'] = this.stayLengthTypes[0];
     this.filterMap['txType'] = this.txTypes[0];
+    this.filterMap['budgetType'] = this.budgetTypes[0];
   }
 
   @HostListener('mouseleave')

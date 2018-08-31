@@ -27,7 +27,7 @@ export class ToolbarComponent {
     tooltip: 'Street',
     isDisabled: false,
     // zoomLevel: ZOOM_DELTA + (MIN_ZOOM * 4),
-    zoomLevel: 15
+    zoomLevel: 15.5
   },
   {
     name: 'neighbourhood',
@@ -35,14 +35,14 @@ export class ToolbarComponent {
     tooltip: 'Neighbourhood',
     isDisabled: false,
     // zoomLevel: ZOOM_DELTA + (MIN_ZOOM * 3)
-    zoomLevel: 14
+    zoomLevel: 15
   },{
     name: 'district',
     icon: 'circle',
     tooltip: 'District',
     isDisabled: false,
     // zoomLevel: ZOOM_DELTA + (MIN_ZOOM * 2)
-    zoomLevel: 13
+    zoomLevel: 14
   },
   {
     name: 'region',
@@ -50,7 +50,7 @@ export class ToolbarComponent {
     tooltip: 'Region',
     isDisabled: false,
     // zoomLevel: ZOOM_DELTA + MIN_ZOOM,
-    zoomLevel: 12
+    zoomLevel: 13
 
   },{
     name: 'country',
@@ -58,7 +58,7 @@ export class ToolbarComponent {
     tooltip: 'Country',
     isDisabled: true,
     // zoomLevel: MIN_ZOOM
-    zoomLevel: 11
+    zoomLevel: 11.1
   },
   {
     name: 'minus',
