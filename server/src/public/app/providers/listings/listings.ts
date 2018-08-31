@@ -6,17 +6,21 @@ import { NGXLogger } from 'ngx-logger';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { filter, share } from 'rxjs/operators';
+
+const TRUEXPERT_TYPE = 'truexpert';
 @Injectable()
 export class Listings  {
   protected data$: BehaviorSubject<any> = new BehaviorSubject(null);
   protected error$: BehaviorSubject<any> = new BehaviorSubject(null);
+
+
   listingsUrl = 'listings/uralistings';
   vwlUrl = 'listings/voluntarywelfarelistings'
   allListingsUrl = 'listings/all';
   listingTypeUrl = 'listings/type';
   private dataMap = {};
-  constructor(public api: Api, private logger: NGXLogger) {
 
+  constructor(public api: Api, private logger: NGXLogger) {
   }
 
 
@@ -45,6 +49,8 @@ export class Listings  {
     });
   }
 
+
+
   getData(listingType: string) {
     return this.dataMap[listingType];
   }
@@ -65,6 +71,8 @@ export class Listings  {
   public getErrorNotification() {
     return this.error$;
   }
+
+
   protected publishDataChanged(listingType: string) {
     this.data$.next(listingType);
   }

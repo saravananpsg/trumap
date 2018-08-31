@@ -1,22 +1,22 @@
 <div class="listing-tile" (click)="toggleSelectListing($event, listing)"
-  [ngClass]="{'selected': (listing?.id === selectedListing?.id),
+  [ngClass]="{'selected': (listing?.index === selectedListing?.index),
     'selected-animation-complete': animationComplete}"
-  [@selectUnselect]="(listing?.id === selectedListing?.id)"
+  [@selectUnselect]="(listing?.index === selectedListing?.index)"
   (@selectUnselect.done)="animationDone($event)">
   <div class="inner-tile">
     <div class="listing-short-info">
       <div class="listing-header">
         <div class="level-1-holder flex flex-column flex-justify-center">
           <div class="address-title text-ellipsis">
-            {{listing?.name | lowercase}}</div>
-          <div class="address-desc text-ellipsis">{{listing?.building_name | lowercase}}</div>
+            {{listing?.property_name | lowercase}}</div>
+          <div class="address-desc text-ellipsis">{{listing?.address | lowercase}}</div>
         </div>
       </div>
-      <img src="https://picsum.photos/300/300/?random={{listing?.id}}"/>
+      <img src="https://picsum.photos/300/300/?random={{listing?.index}}"/>
       <div class="listing-footer">
         <div class="left">
           <div class="listing-index">
-            {{listing?.id}}
+            {{listing?.index}}
           </div>
         </div>
         <div class="right">
@@ -36,7 +36,7 @@
     <div class="listing-medium-info">
       <div class="level-2-holder flex flex-align-center">
         <div class="bed flex-child flex-width-50">
-          <span> 2 <i class="fa fa-bed"></i></span>
+          <span> {{ listing?.bedroom_number | ngxListingFormat}} <i class="fa fa-bed"></i></span>
         </div>
         <div class="bath">
           <span> 1 <i class="fa fa-bath"></i></span>
@@ -45,7 +45,7 @@
       <div class="level-3-holder flex  flex-align-center">
         <div class="rent flex flex-column flex-child flex-width-50">
           <label>MONTHLY RENT</label>
-          <label>$2400</label>
+          <label>${{listing?.price || 0}}</label>
         </div>
         <div class="sqft flex flex-column">
           <label>PSF</label>
@@ -57,7 +57,7 @@
       <div class="level-4-holder flex  flex-align-center">
         <div class=" flex flex-column flex-child flex-width-50">
           <label>PROPERTY TYPE</label>
-          <label>Apartment</label>
+          <label>{{listing?.property_type}}</label>
         </div>
         <div class=" flex flex-column">
           <label>SQFT</label>
@@ -101,7 +101,7 @@
         <div class="media flex flex-align-center">
           <img class="mr-3" src="https://picsum.photos/100/100/?random=2" alt="">
           <div class="media-body">
-            <h5 class="mt-0">John Smith</h5>
+            <h5 class="mt-0">{{listing?.lister_name}}</h5>
             <span>Last seen: 12/08/18 7:44 PM</span>
             <i class="fa fa-comment-alt"></i>
           </div>

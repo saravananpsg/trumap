@@ -5,9 +5,11 @@ import * as firebaseApp from 'firebase/app';
 import * as geofirex from 'geofirex';
 import { MapMouseEvent } from 'mapbox-gl';
 import { Listings } from '../../providers/listings/listings';
+import { TruListings } from '../../providers/listings/tru.listings';
 import { NGXLogger } from 'ngx-logger';
 import { Legends } from '../../@theme/components';
 import * as alertify from 'alertify.js';
+const TRU_LISTING = 'trulisting';
 const iconMap: any = Legends.reduce((accumulator, legend) => {
   accumulator[legend.value] = legend;
   return accumulator;
@@ -53,7 +55,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   geoSources = [];
 
-  constructor(private listingsService: Listings, private logger: NGXLogger) {
+  constructor(private listingsService: Listings, private truListings: TruListings,
+    private logger: NGXLogger) {
 
     this.listingsService.getDataNotification().subscribe((listingType) => {
       if( !listingType ) return;
@@ -64,8 +67,15 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.listingsService.getErrorNotification().subscribe((err) => {
       if( !err ) return;
-      alertify.error('Error while loading data');
       this.logger.error('HomeComponentError:', err);
+      alertify.error('Error while loading data');
+    });
+
+    this.truListings.truData.subscribe((data) => {
+      if( !data || !Array.isArray(data.data)) return;
+      const listingData = data.data;
+      this.addListings(listingData, TRU_LISTING);
+
     });
   }
 
@@ -111,12 +121,13 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: [listing.longitude, listing.latitude]
+          coordinates: [listing.longitude || listing.lng,
+            listing.latitude || listing.lat]
         },
         properties: {
           title: listing.name,
-          description: `<br><h6>${listing.name || listing.description ||
-            'Unknown'}</h6>`,
+          description: `<br><h6>${listing.name || listing.property_name ||
+            listing.description || 'Unknown'}</h6>`,
           icon: iconMap[listingType].icon || 'monument',
         }
       };
@@ -232,8 +243,11 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   changeMapLayers(legendFilter: any) {
     this.logger.debug('HomeComponent:ChangeMapLayers:LegendFilter:', legendFilter);
     if(!legendFilter) return;
+
+
     for (let index = 0; index < this.geoSources.length; index++) {
       const source = this.geoSources[index];
+      if(source.id === TRU_LISTING) continue;
       let layout = source.layout;
 
       if(legendFilter[source.id] && (layout.visibility !== 'visible')) {

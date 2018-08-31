@@ -25,6 +25,12 @@ module.exports = {
       force: process.env.DB_FORCE === 'true' ? true : false
     }
   },
+  truexpert: {
+    search: {
+      secret: 'jueCiI29at',
+      apiUrl: 'https://staging2.truuue.com/api/v1/zuulin/listings/search'
+    }
+  },
   seed: {
     data: {
       user: {

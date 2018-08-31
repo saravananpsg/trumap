@@ -1,9 +1,10 @@
 import { Component, OnInit, Output, Input, AfterViewInit, HostListener, EventEmitter, OnDestroy } from '@angular/core';
 import { ChangeEvent } from 'angular2-virtual-scroll';
 import { NGXLogger } from 'ngx-logger';
-import { Listings } from '../../../providers/listings/listings';
+import { TruListings } from '../../../providers/listings/tru.listings';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-
+import * as alertify from 'alertify.js';
+import { Observable } from 'rxjs';
 const LIMIT = 20;
 @Component({
   selector: 'ngx-listing',
@@ -12,46 +13,61 @@ const LIMIT = 20;
 })
 export class ListingComponent implements AfterViewInit, OnDestroy {
   protected listings: any = [];
+  protected listingObj: Observable<any>;
   protected loading = false;
   protected error = '';
   protected selectedListing: any;
   protected selectToUnselect = false;
   protected defaultListingType = 'voluntary_welfare';
+  protected filter = {
+    bedroom_num: 20,
+    budget: 10000,
+    lat: 1.342863,
+    lng: 103.844685,
+    property_types: 'condominium,hdb',
+    radius: 5000,
+    size: 20
+  };
+
   @Output() onAddListings: EventEmitter<any> = new EventEmitter<any>();
-  constructor(private logger: NGXLogger, private listingsService: Listings){
-    this.listingsService.getDataNotification().subscribe((listingType) => {
-      (listingType === this.defaultListingType) ?
-        this.listings = this.listingsService.getData(listingType) : null;
-    });
-    this.listingsService.getErrorNotification().subscribe((err) => {
-      this.logger.error('ListingsComponentError:', err);
+  constructor(private logger: NGXLogger,
+      private truListings: TruListings) {
+    this.truListings.getTruErrorNotification().subscribe((err) => {
+      if(!err) return;
+      this.logger.error('TruListingsComponentError:', err);
+      this.error = `Error in loading data`;
+      alertify.error(this.error);
     });
   }
 
   ngAfterViewInit() {
-    this.load();
+    this.load(this.filter);
     console.log('Listing: In Init');
   }
 
   ngOnDestroy() {
-    this.listingsService.getDataNotification().unsubscribe();
-    this.listingsService.getErrorNotification().unsubscribe();
   }
 
   protected fetchMore(event: ChangeEvent) {
     if( event.end < 0) return;
-    if (event.end !== this.listings.length-1) return;
+    //if (event.end !== this.truListings.truData.data.length - 1) return;
     // console.log('FetchMore:', event);
-    this.loading = true;
-    this.fetchNextChunk(this.listings.length, LIMIT);
+    // this.loading = true;
+    // this.fetchNextChunk(this.listings.length, LIMIT);
+    this.fetchNextChunk(event.end);
   }
 
-  protected fetchNextChunk(skip: number, limit: number): void {
-    this.load({ offset: skip, limit: limit });
+  //protected fetchNextChunk(skip: number, limit: number): void {
+  protected fetchNextChunk(lastItemIndex): void {
+    //this.load({ offset: skip, limit: limit });
+    this.truListings.loadNext(this.filter, lastItemIndex);
   }
 
-  protected load(filter = { offset: 0, limit: LIMIT }): void {
-    this.listingsService.loadListings(this.defaultListingType, filter);
+
+  protected load(filter?: any): void {
+    //  this.listingsService.loadListings(this.defaultListingType, filter);
+
+    this.truListings.loadListings(filter);
     /*this.listingsService.vwListings(filter).subscribe(data => {
           const listingsData: any = data;
           let newIndex = filter.offset + 1;
@@ -74,7 +90,8 @@ export class ListingComponent implements AfterViewInit, OnDestroy {
   }
 
   protected toggleSelectListing(listing): void {
-    this.selectedListing = (this.selectedListing && (listing.id === this.selectedListing.id))
+    this.selectedListing = (this.selectedListing &&
+        (listing.index === this.selectedListing.index))
       ? null : listing;
     (this.selectedListing) ? this.selectToUnselect = false : null;
     this.logger.debug('SELECT LISTING:', listing);
