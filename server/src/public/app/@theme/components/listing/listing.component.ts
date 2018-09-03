@@ -5,13 +5,25 @@ import { TruListings } from '../../../providers/listings/tru.listings';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import * as alertify from 'alertify.js';
 import { Observable } from 'rxjs';
-const LIMIT = 20;
+const LIMIT = 50;
+const FILTER_ZOOM_LEVEL_CHECK = 14;
+const DEFAULT_FILTER = {
+    bedroom_num: 20,
+    budget: 10000,
+    lat: 1.342863,
+    lng: 103.844685,
+    property_types: 'condominium,hdb',
+    radius: 5000,
+    size: LIMIT
+};
+
 @Component({
   selector: 'ngx-listing',
   templateUrl: './listing.component.html',
   styleUrls: ['./listing.component.scss'],
 })
 export class ListingComponent implements AfterViewInit, OnDestroy {
+  @Input('mapProperty') mapProperty: any;
   protected listings: any = [];
   protected listingObj: Observable<any>;
   protected loading = false;
@@ -19,16 +31,7 @@ export class ListingComponent implements AfterViewInit, OnDestroy {
   protected selectedListing: any;
   protected selectToUnselect = false;
   protected defaultListingType = 'voluntary_welfare';
-  protected filter = {
-    bedroom_num: 20,
-    budget: 10000,
-    lat: 1.342863,
-    lng: 103.844685,
-    property_types: 'condominium,hdb',
-    radius: 5000,
-    size: 20
-  };
-
+  protected filter: any;
   @Output() onAddListings: EventEmitter<any> = new EventEmitter<any>();
   constructor(private logger: NGXLogger,
       private truListings: TruListings) {
@@ -41,6 +44,7 @@ export class ListingComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
+    this.filter = { ...DEFAULT_FILTER };
     this.load(this.filter);
     console.log('Listing: In Init');
   }
@@ -87,6 +91,24 @@ export class ListingComponent implements AfterViewInit, OnDestroy {
           this.logger.debug('Listings:Error', err);
     });
     */
+  }
+
+  protected constructParmsWithMapProperty(filterParams) {
+
+    const newFilterParams = { ...filterParams, ...this.mapProperty };
+    return newFilterParams;
+  }
+
+  protected onSelectFilter(filterParams) {
+    const newFilterParams = this.constructParmsWithMapProperty(filterParams);
+    this.filter = { ...this.filter, ...newFilterParams };
+    if(this.mapProperty.zoom >= FILTER_ZOOM_LEVEL_CHECK ) {
+      this.truListings.loadListings(this.filter);
+    } else {
+      alertify.alert(`Unable to apply filter at this zoom level.
+        Please change your zoom levels to either District, Neighbourhood,
+        Street or Property`);
+    }
   }
 
   protected toggleSelectListing(listing): void {

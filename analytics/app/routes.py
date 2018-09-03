@@ -11,3 +11,9 @@ def messages():
     message = request.get_json()
     print(message)
     return jsonify({"status":'ok'})
+
+@app.route('/truuue/listings', methods=('POST',))
+def trulistings():
+    listings = request.get_json()
+    print(listings)
+    return jsonify({"status":'ok'})

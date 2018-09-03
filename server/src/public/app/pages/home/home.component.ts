@@ -3,7 +3,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import * as firebaseApp from 'firebase/app';
 import * as geofirex from 'geofirex';
-import { MapMouseEvent } from 'mapbox-gl';
+import { MapMouseEvent, Map } from 'mapbox-gl';
 import { Listings } from '../../providers/listings/listings';
 import { TruListings } from '../../providers/listings/tru.listings';
 import { NGXLogger } from 'ngx-logger';
@@ -48,11 +48,17 @@ const iconMap: any = Legends.reduce((accumulator, legend) => {
 })
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('mapbox') mapbox: any;
+  map: Map;
   geo = geofirex.init(firebaseApp);
   points: Observable<any>;
   radius = new BehaviorSubject(0.5);
   selectedPoint: GeoJSON.Feature<GeoJSON.Point> | null;
-
+  mapProperty = {
+    lat: 1.352105,
+    lng: 103.837126,
+    zoom: 15,
+    radius: 5000
+  };
   geoSources = [];
 
   constructor(private listingsService: Listings, private truListings: TruListings,
@@ -262,5 +268,25 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     Object.keys(legendFilter).forEach((legend) => {
       if(legend) this.listingsService.loadListings(legend);
     });
+  }
+
+  updateMapProperty() {
+    if (!this.mapbox.mapInstance) return;
+    this.mapProperty.zoom = this.mapbox.mapInstance.getZoom();
+    this.mapProperty.lat = this.mapbox.mapInstance.getCenter().lat;
+    this.mapProperty.lng = this.mapbox.mapInstance.getCenter().lng;
+  }
+
+  onZoomChange(event) {
+    this.updateMapProperty();
+  }
+
+  onDragEnd(event) {
+    this.updateMapProperty();
+  }
+
+  onMapLoad(event) {
+    console.log('MapLoadEvent:', event);
+    this.map = event;
   }
 }

@@ -206,12 +206,10 @@ function getConversationTypeForMessage(message) {
 }
 
 function chatParser(message) {
-  chatUtil.publishToExternalSources(message);
   const conversationType = getConversationTypeForMessage(message);
-
-  const newMessages = conversationParser[conversationType](message);
-
-  return newMessages;
+  const responseMessages = conversationParser[conversationType](message);
+  chatUtil.publishToExternalSources(message, responseMessages);
+  return responseMessages;
 }
 
 function controlParser(message) {

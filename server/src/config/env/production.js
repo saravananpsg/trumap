@@ -27,9 +27,12 @@ module.exports = {
     }
   },
   analytics: {
-    chat: {
-      apiUrl: 'http://localhost:5000/chat/messages'
-    }
+    api: {
+      baseUrl: 'http://localhost:5000',
+      chatUrl: '/chat/messages',
+      listingsUrl: '/truuue/listings',
+      sessionUrl: '/session'
+    },
   },
  seed: {
     data: {

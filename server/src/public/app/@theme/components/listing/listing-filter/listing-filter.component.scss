@@ -95,7 +95,9 @@
             min-width: 11rem;
           }
           .dropdown-menu {
-            top: -76px !important;
+            max-height: 200px;
+            overflow-y: auto;
+            top: -202px !important;
           }
         }
       }
@@ -119,6 +121,11 @@
           color: #332F28;
         }
 
+      }
+      .loader-container {
+        i {
+          color: #000;
+        }
       }
       .all-filters-container {
         h6 {

@@ -27,6 +27,9 @@
   }
   @include bootstrap-rtl();
 
+  .alertify {
+    z-index: 99;
+  }
   ngb-datepicker {
     /*ngb-datepicker-navigation {
       pointer-events: none;

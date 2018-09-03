@@ -1,6 +1,8 @@
 'use strict';
 const roomName = 'filter';
-let chatController = require('../controllers/chat.server.socket.controller');
+let path = require('path'),
+  coreUtil = require(path.resolve('./src/app/core/controllers/util.server.controller')),
+  chatController = require('../controllers/chat.server.socket.controller');
 
 // Create the chat configuration
 module.exports = function (io, socket) {
@@ -29,7 +31,7 @@ module.exports = function (io, socket) {
   // Send a chat messages to all connected sockets when a message is received
   socket.on(roomId, function (message) {
     if(!message || !message.data) return;
-    message.remoteAddress = socket.request.connection.remoteAddress;
+    message.remoteAddress = coreUtil.extractIPAdress(socket.request);
     message.sessionId = socket.request.session.sessionId;
     const newMessages = chatController.parseMessage(message, message.type);
     newMessages.forEach((newMessage) => {

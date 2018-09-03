@@ -14,9 +14,12 @@
   </agm-map>-->
   <mgl-map #mapbox
     [style]="'mapbox://styles/galvinw/cjki32wem35cb2ss2vhqr1tu1'"
-    [zoom]="15"
-    [center]="[103.837126, 1.352105]"
+    [zoom]="mapProperty?.zoom"
+    [center]="[mapProperty?.lng, mapProperty?.lat]"
     [cursorStyle]="cursorStyle"
+    (dragEnd)="onDragEnd($event)"
+    (zoomEnd)="onZoomChange($event)"
+    (load)="onMapLoad($event)"
   >
 
     <mgl-geojson-source *ngFor="let source of geoSources"
@@ -126,7 +129,9 @@
       (onLegendSelected)="changeMapLayers($event)"></ngx-toolbar>
   </div>
   <div class="footer-toolbar">
-    <ngx-listing  #listings (onAddListings)="addListings($event)"></ngx-listing>
+    <ngx-listing  #listings (onAddListings)="addListings($event)"
+      [mapProperty]="mapProperty"
+    ></ngx-listing>
   </div>
 
 </div>
