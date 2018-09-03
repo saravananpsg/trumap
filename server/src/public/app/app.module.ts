@@ -45,6 +45,7 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { Listings } from './providers/listings/listings';
 import { ChatService } from './providers/socket/chat.service';
 import { TruListings } from './providers/listings/tru.listings';
+import { AuthSession } from './providers/auth/auth.session.service';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
    suppressScrollX: false
@@ -83,7 +84,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     Listings,
     ChatService,
     CookieService,
-    TruListings
+    TruListings,
+    AuthSession
   ],
   bootstrap: [AppComponent]
 })

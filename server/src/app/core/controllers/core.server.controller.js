@@ -1,4 +1,5 @@
-var validator = require('validator');
+var validator = require('validator'),
+  analyticsUtil = require('./analytics.util.server.controller');
 
 /**
  * Render the main application page

@@ -1,11 +1,6 @@
 var path = require('path'),
 db = require(path.resolve('./src/config/lib/sequelize')),
-config = require(path.resolve('./src/config/config')),
-request = require('request-promise-native');
-
-const analyticsConfig = config.analytics;
-const analyticsApiUrl = ( analyticsConfig && analyticsConfig.chat.apiUrl) ?
-  analyticsConfig.chat.apiUrl : null;
+analyticsUtil = require(path.resolve('./src/app/core/controllers/analytics.util.server.controller'));
 
 function constructMessage(message) {
   const newMessage = {
@@ -24,8 +19,9 @@ function publishToDB(message) {
   });
 }
 
-function publishToAnalyticsServer(message) {
+function publishToAnalyticsServer(message, responseMessages) {
   if (!analyticsApiUrl) return;
+  message.response = responseMessages[0];
   const options = {
     url: analyticsApiUrl,
     method: 'POST',
@@ -37,8 +33,9 @@ function publishToAnalyticsServer(message) {
   })
 }
 
-exports.publishToExternalSources = function(message) {
+exports.publishToExternalSources = function(message, responseMessages) {
   const newMessage = constructMessage(message);
   publishToDB(newMessage);
-  publishToAnalyticsServer(newMessage);
+  newMessage.response = responseMessages[0];
+  analyticsUtil.publishChatMessage(newMessage);
 };

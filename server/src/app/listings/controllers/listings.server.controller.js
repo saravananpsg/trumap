@@ -11,7 +11,8 @@ var path = require('path'),
   errorHandler = require(path.resolve('./src/app/core/controllers/errors.server.controller')),
   moment = require('moment'),
   request = require('request-promise-native'),
-  crypto = require('crypto');
+  crypto = require('crypto'),
+  listingsUtil = require('./listings.server.util.controller');
 
 
 const _voluntaryWelfareListQuery = `SELECT *,  count(*) OVER() as totalCount FROM
@@ -91,9 +92,11 @@ exports.truexpert = function(req, res) {
   console.log('New query:', query);
   request.get({url: searchApi, qs: query})
   .then((response) => {
+    listingsUtil.publishToExternalSources(req, query, response, null);
     return res.json(response);
   })
   .catch((error) => {
+    listingsUtil.publishToExternalSources(req, query, null, error);
     return res.status(400).send(error);
   });
 };
