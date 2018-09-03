@@ -28,10 +28,10 @@ module.exports = {
   },
   analytics: {
     api: {
-      baseUrl: 'http://localhost:5000',
-      chatUrl: '/chat/messages',
-      listingsUrl: '/truuue/listings',
-      sessionUrl: '/session'
+      baseUrl: 'http://localhost:5000/',
+      chatUrl: 'api/chat/messages',
+      listingsUrl: 'api/truuue/listings',
+      sessionInitUrl: 'api/session/init'
     },
   },
   seed: {

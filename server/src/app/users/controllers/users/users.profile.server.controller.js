@@ -8,7 +8,8 @@ var _ = require('lodash'),
   path = require('path'),
   errorHandler = require(path.resolve('./src/app/core/controllers/errors.server.controller')),
   multer = require('multer'),
-  config = require(path.resolve('./src/config/config'));
+  config = require(path.resolve('./src/config/config')),
+  analyticsUtil = require(path.resolve('./src/app/core/controllers/analytics.util.server.controller'));
 
 /**
  * Update user details
@@ -117,4 +118,9 @@ exports.changeProfilePicture = function(req, res) {
  */
 exports.me = function(req, res) {
   res.json(req.user || null);
+};
+
+exports.session = function(req, res) {
+  analyticsUtil.publishSessionInit(req);
+  res.json({ status: 'ok'});
 };
