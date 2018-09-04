@@ -20,6 +20,7 @@ interface IChatData {
   text?: string;
   value?: string;
   actions?: [any];
+  amenity?: any;
 }
 interface IChatMessageItem {
   type: string,
@@ -132,19 +133,19 @@ export class ChatMessageComponent implements AfterViewInit, OnDestroy {
     return chatMessageItem;
   }
 
-  protected sendActionMessage(action) {
+  protected sendActionMessage(message, action) {
     const chatMesageItem: IChatMessageItem = {
       type: MESSAGE_TYPE,
       timestamp: Date.now(),
       data: {
         type: 'basic-preset',
-        text: action.name,
-        value: action.value
+        text: action.text,
+        value: action.value,
       }
     };
+    (message.amenity) ? chatMesageItem.data.amenity = message.amenity : null;
     this.chatMessages.push(chatMesageItem);
     this.chatService.sendMessage(chatMesageItem);
-
   }
 
   public ngOnDestroy() {

@@ -27,8 +27,8 @@
               <li *ngFor="let action of chatMessage?.data?.actions"
                 class="flex flex-align-center flex-justify-center">
                 <button class="btn btn-block btn-info"
-                  (click)="sendActionMessage(action)">
-                  {{ action.name }}
+                  (click)="sendActionMessage(chatMessage?.data,action)">
+                  {{ action.text }}
                 </button>
               </li>
             </ul>

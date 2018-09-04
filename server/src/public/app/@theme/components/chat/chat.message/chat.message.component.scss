@@ -42,10 +42,10 @@
       z-index: 2;
       li {
         z-index: 1;
-        height: 3rem;
+        min-height: 3rem;
         border-bottom: solid 1px #ccc;
         &.title {
-          padding: 0 1rem;
+          padding: 0.5rem 1rem;
         }
         .btn {
           z-index: 1;
