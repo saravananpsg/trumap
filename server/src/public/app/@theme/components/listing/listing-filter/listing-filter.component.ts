@@ -154,8 +154,8 @@ export class ListingFilterComponent {
     this.filterMap[TYPES.BUDGET] = this.budgetTypes[0];
   }
 
-  @HostListener('mouseleave')
+  /*@HostListener('mouseleave')
   onMouseLeave($event){
     this.datePicker.close();
-  }
+  }*/
 }

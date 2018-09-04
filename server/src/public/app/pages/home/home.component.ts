@@ -134,7 +134,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
           title: listing.name,
           description: `<br><h6>${listing.name || listing.property_name ||
             listing.description || 'Unknown'}</h6>`,
-          icon: iconMap[listingType].icon || 'monument',
+          icon: (iconMap[listingType]) ? iconMap[listingType].icon : 'castle',
         }
       };
       geoListings.features.push(featureObj);

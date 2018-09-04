@@ -24,5 +24,4 @@ export const Legends = [
   { name: 'Supermarket', value: 'super_market', icon: 'grocery' },
   { name: 'Train Stations', value: 'train_station_names', icon: 'rail-metro' },
   { name: 'Voluntary Welfare', value: 'voluntary_welfare', icon: 'star' },
-  { name: 'TruListing', value: 'trulisting', icon: 'castle'}
 ];
