@@ -2,7 +2,7 @@
   <div class="col-md-6 col-lg-4 col-sm-12 col-xs-12 chat-bar inner-row">
     <ngx-chat-component class=""></ngx-chat-component>
   </div>
-  <div class="col-md-6 col-lg-5 col-sm-12 col-xs-12 flex flex-alig-center
+  <div class="col-md-6 col-lg-5 col-sm-12 col-xs-12 flex d-none d-md-block
     flex-justify-center inner-row">
     <div class="btn-group zoom-bar">
       <button type="button" class="btn btn-secondary"
@@ -19,7 +19,7 @@
   <div class="col-md-6 col-lg-3 col-sm-12 col-xs-12 inner-row">
     <div class="presets-bar">
       <div class="type-dropdown">
-        <div class="top-bottom-container">
+        <div class="top-bottom-container d-none d-md-block">
           <button class="btn btn-secondary top-button" type="button"
             (click)="typeDropdownSelected = !typeDropdownSelected">
             {{selectedPreset?.name}}

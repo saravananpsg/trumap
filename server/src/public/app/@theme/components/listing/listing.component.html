@@ -1,6 +1,6 @@
 <div class="listing-component" >
   <div *ngIf="truListings.truData | async; let truData">
-    <div class="listing-filter-holder" [ngClass]="{'selected': (!!selectedListing)}">
+    <div class="listing-filter-holder d-none d-md-block" [ngClass]="{'selected': (!!selectedListing)}">
       <!--<ngx-listing-filter [count]="listings?.length"
         (onSelectFilter)="onSelectFilter($event)">
       </ngx-listing-filter>-->
