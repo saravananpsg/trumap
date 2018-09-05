@@ -1,0 +1,53 @@
+{
+    "default" : {
+        "aed_locations": 0.5,
+        "axs_stations": 0.5,
+        "child_care": 0.5,
+        "community_clubs": 0.5,
+        "constituency_offices": 0.5,
+        "disability_care": 0.5,
+        "elder_care": 0.5,
+        "hawker_centres": 0.5,
+        "historic_sites": 0.5,
+        "hospitals": 0.5,
+        "hotels": 0.5,
+        "kinder_gardens": 0.5,
+        "libraries": 0.5,
+        "money_xchanger": 0.5,
+        "museum": 0.5,
+        "nursing_home": 0.5,
+        "pharmacy": 0.5,
+        "preschools": 0.5,
+        "private_inst": 0.5,
+        "remittance": 0.5,
+        "schools": 0.5,
+        "student_care": 0.5,
+        "super_market": 0.5,
+        "train_station_names": 0.5,
+        "trulisting": 0.5,
+        "voluntary_welfare": 0.5
+    },
+    "custom": {
+        "rent_int_su" :{
+            "hawker_centres": 0.7,
+            "hospitals": 0.6,
+            "hotels": 0.6,
+            "libraries": 0.7,
+            "money_xchanger": 0.9,
+            "pharmacy": 0.8,
+            "remittance": 0.6,
+            "schools": 0.6,
+            "student_care": 0.9,
+            "super_market": 0.9,
+            "train_station_names": 0.6,
+            "trulisting": 0.8,
+            "voluntary_welfare": 0.7 
+        },
+        "rent_foreign_work": {
+            "hawker_centres": 0.9,
+            "hospitals": 0.6,
+            "money_xchanger": 0.8,
+            "remittance": 0.9
+        }
+    }
+}
