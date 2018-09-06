@@ -21,7 +21,7 @@ export class ListingTileComponent {
   @Input() selectedListing: any;
   @Output() onToggleSelectListing: EventEmitter<any> = new EventEmitter<any>();
   protected animationComplete = false;
-
+  protected fullListingUrl = 'https://www.truuue.com/listings/';
   toggleSelectListing($event, listing) {
     this.animationComplete = false;
     $event.stopImmediatePropagation();

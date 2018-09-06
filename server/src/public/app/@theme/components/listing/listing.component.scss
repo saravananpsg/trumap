@@ -41,6 +41,7 @@
           }
           background-color: transparent;
         }
+
         &:hover, &.selected {
           height: 252px;
           max-height: 252px;
@@ -58,9 +59,12 @@
               .listing-header {
                 bottom: 0;
               }
+
               img {
                 height: 154px;
+                width: 100%;
               }
+
               .listing-footer {
                 top: 0;
                 bottom: unset;

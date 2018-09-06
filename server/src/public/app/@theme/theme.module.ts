@@ -46,8 +46,10 @@ import {
   ListingTileComponent,
   ChatComponent,
   ChatMessageComponent,
+  ImageLoaderComponent
 } from './components';
-import { CapitalizePipe, PluralPipe, RoundPipe, TimingPipe, ListingPipe } from './pipes';
+import { CapitalizePipe, PluralPipe, RoundPipe, TimingPipe, BedroomNumberPipe,
+  PricePerSqftPipe} from './pipes';
 import {
   SampleLayoutComponent,
 } from './layouts';
@@ -94,6 +96,7 @@ const COMPONENTS = [
   ListingTileComponent,
   ChatComponent,
   ChatMessageComponent,
+  ImageLoaderComponent
 ];
 
 const PIPES = [
@@ -101,7 +104,8 @@ const PIPES = [
   PluralPipe,
   RoundPipe,
   TimingPipe,
-  ListingPipe
+  BedroomNumberPipe,
+  PricePerSqftPipe
 ];
 
 const entryComponents = [DownloadModalComponent];

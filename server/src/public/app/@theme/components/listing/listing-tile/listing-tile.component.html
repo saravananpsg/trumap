@@ -12,7 +12,15 @@
           <div class="address-desc text-ellipsis">{{listing?.address | lowercase}}</div>
         </div>
       </div>
-      <img src="https://picsum.photos/300/300/?random={{listing?.index}}"/>
+      <!--<img [defaultImage]="'https://picsum.photos/300/300/?random='+ listing?.index"
+       [lazyLoad]="listing?.thumbnail">-->
+      <img [src]="listing?.thumbnail ? listing?.thumbnail :
+        'https://picsum.photos/300/300/?random='+ listing?.index">
+      <!--<image-loader [src]="listing?.thumbnail"
+        [default]="'https://picsum.photos/300/300/?random='+ listing?.index"
+      >
+    </image-loader>-->
+
       <div class="listing-footer">
         <div class="left">
           <div class="listing-index">
@@ -36,7 +44,7 @@
     <div class="listing-medium-info">
       <div class="level-2-holder flex flex-align-center">
         <div class="bed flex-child flex-width-50">
-          <span> {{ listing?.bedroom_number | ngxListingFormat}} <i class="fa fa-bed"></i></span>
+          <span> {{ listing?.bedroom_number | ngxBedNumFormat}} <i class="fa fa-bed"></i></span>
         </div>
         <div class="bath">
           <span> 1 <i class="fa fa-bath"></i></span>
@@ -49,7 +57,7 @@
         </div>
         <div class="sqft flex flex-column">
           <label>PSF</label>
-          <label>$17.91</label>
+          <label>{{listing | ngxPricePerSqftFormat }}</label>
         </div>
       </div>
     </div>
@@ -61,7 +69,7 @@
         </div>
         <div class=" flex flex-column">
           <label>SQFT</label>
-          <label>144</label>
+          <label>{{listing?.floor_area}}</label>
         </div>
       </div>
       <div class="level-5-holder">
@@ -70,12 +78,14 @@
           <div class="row-1 flex ">
             <div class="flex flex-column flex-child flex-width-50">
               <label class="title"> <i class="fa fa-train"></i>MRT</label>
-              <label class="info">DT23 Bendemeer</label>
-              <label class="info">EW11 Lavender</label>
+              <!--<label class="info">DT23 Bendemeer</label>
+              <label class="info">EW11 Lavender</label>-->
+              <label></label><label></label>
             </div>
             <div class=" flex flex-column">
               <label class="title"><i class="fa fa-bus-alt"></i>BUS</label>
-              <label>13, 67, 107, 107M, 133, 141, 145, 175, 961, 961C</label>
+              <!--<label>13, 67, 107, 107M, 133, 141, 145, 175, 961, 961C</label>-->
+              <label></label>
             </div>
           </div>
         </div>
@@ -99,16 +109,23 @@
       <div class="level-6-holder">
         <label>AGENT</label>
         <div class="media flex flex-align-center">
-          <img class="mr-3" src="https://picsum.photos/100/100/?random=2" alt="">
+          <!--<img [defaultImage]="'https://picsum.photos/300/300/?random=2'"
+           [lazyLoad]="listing?.lister_photo">-->
+          <!--<img class="mr-3" src="https://picsum.photos/100/100/?random=2" alt="">-->
+          <img class="mr-3" [src]="listing?.lister_photo ? listing?.lister_photo :
+            'https://picsum.photos/300/300/?random=2'">
           <div class="media-body">
             <h5 class="mt-0">{{listing?.lister_name}}</h5>
             <span>Last seen: 12/08/18 7:44 PM</span>
             <i class="fa fa-comment-alt"></i>
           </div>
         </div>
-        <button type="button" class="btn btn-outline-primary btn-block">
+        <a [href]="fullListingUrl + listing?.id_hash" target="_blank" >
+          <button type="button" class="btn btn-outline-primary btn-block"
+          >
           VIEW FULL LISTING
         </button>
+        </a>
       </div>
       <div class="level-7-holder">
         <div class="input-group">

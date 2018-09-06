@@ -15,3 +15,4 @@ export * from './listing/listing-filter/listing-filter.component';
 export * from './listing/listing-tile/listing-tile.component';
 export * from './chat/chat.component';
 export * from './chat/chat.message/chat.message.component';
+export * from './image-loader/image-loader.component';

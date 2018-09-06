@@ -45,6 +45,7 @@ export class TruListings  {
     let currentOffset = (concat) ? currentData.data.length : 0;
     for(let index = 0; index < newData.data.length; index++) {
       newData.data[index].index = ++currentOffset;
+      // console.log(newData.data[index].id_hash, newData.data[index].thumbnail,newData.data[index].lister_photo);
     }
 
     (concat) ? newData.data = currentData.data.concat(newData.data) : null;
