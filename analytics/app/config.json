@@ -28,8 +28,7 @@
         "voluntary_welfare": 0.5
     },
     "custom": {
-        "rent_int_su" :{
-            "hawker_centres": 0.7,
+        "yes_expat" :{
             "hospitals": 0.6,
             "hotels": 0.6,
             "libraries": 0.7,
@@ -42,12 +41,6 @@
             "train_station_names": 0.6,
             "trulisting": 0.8,
             "voluntary_welfare": 0.7 
-        },
-        "rent_foreign_work": {
-            "hawker_centres": 0.9,
-            "hospitals": 0.6,
-            "money_xchanger": 0.8,
-            "remittance": 0.9
         }
     }
 }
