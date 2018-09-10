@@ -1,0 +1,46 @@
+@import '../../../@theme/styles/themes';
+
+@include nb-install-component() {
+  .map-point {
+    min-width: 200px;
+    .point-header {
+
+      background: #f8f8f8;
+      color: nb-theme(color-primary);
+      padding: 10px;
+      width: 100%;
+      .image-holder {
+        img {
+          height: 50px;
+          width: 50px
+        }
+      }
+      .name {
+
+        padding: 0 10px;
+        h6 {
+          font-size: 1.2rem;
+          font-weight: bold;
+          margin-top: 3px;
+          color: nb-theme(color-primary);
+          width: 90%;
+        }
+        p {
+          width: 90%;
+        }
+      }
+    }
+
+    .point-footer {
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 10px;
+      background: #f8f8f8;
+      color: #000;
+      label {
+        margin-bottom: 0;
+      }
+
+    }
+  }
+}

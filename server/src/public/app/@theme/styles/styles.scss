@@ -150,7 +150,9 @@
     border-right: 0.5rem solid transparent;
     border-top: 0.8rem solid red;
   }
-
+  .mapboxgl-popup-content {
+    padding: 0;
+  }
   .flex {
     display: flex;
     &.flex-align-center {
@@ -167,6 +169,12 @@
     }
     &.flex-justify-center {
       justify-content: center;
+    }
+    &.flex-justify-evenly {
+      justify-content: space-evenly;
+    }
+    &.flex-justify-around {
+      justify-content: space-around;
     }
     &.flex-column {
       flex-direction: column;

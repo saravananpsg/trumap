@@ -1,0 +1,32 @@
+<div class="map-point">
+  <div class="flex flex-column flex-align-center"
+    *ngIf="!selectedPoint?.properties?.id_hash"
+    [innerHTML]="selectedPoint.properties?.description">
+  </div>
+  <div class="flex flex-column flex-align-center"
+    *ngIf="selectedPoint?.properties?.id_hash"
+    >
+    <div class="point-header flex">
+      <div class="image-holder">
+        <img
+        [src]="selectedPoint?.properties?.thumbnail ||
+          'https://picsum.photos/100/100/?random=2'">
+      </div>
+      <div class="name">
+        <h6 class="text-ellipsis"> {{ selectedPoint?.properties?.property_name}}</h6>
+        <p class="text-ellipsis"> {{ selectedPoint?.properties?.address}}</p>
+      </div>
+    </div>
+    <div class="point-body">
+      <label></label>
+      <label></label>
+      <label></label>
+    </div>
+    <div class="point-footer flex flex-justify-space-between">
+      <label> ADD THIS TO MY PLACES</label>
+      <div class="icon">
+        <i class="fa fa-plus-circle"></i>
+      </div>
+    </div>
+  </div>
+</div>

@@ -14,8 +14,25 @@
       </div>
       <!--<img [defaultImage]="'https://picsum.photos/300/300/?random='+ listing?.index"
        [lazyLoad]="listing?.thumbnail">-->
-      <img [src]="listing?.thumbnail ? listing?.thumbnail :
-        'https://picsum.photos/300/300/?random='+ listing?.index">
+       <div class="listing-body">
+         <img [src]="listing?.thumbnail ? listing?.thumbnail :
+         'https://picsum.photos/300/300/?random='+ listing?.index">
+         <div class="property-details flex flex-column d-md-none">
+           <div class="rent flex flex-column">
+             <label>MONTHLY RENT</label>
+             <label>${{listing?.price || 0}}</label>
+           </div>
+           <div class="flex flex-align-center">
+             <div class="bed flex-child flex-width-50">
+               <span> {{ listing?.bedroom_number | ngxBedNumFormat}}
+                  <i class="fa fa-bed"></i></span>
+             </div>
+             <div class="bath">
+               <span> 1 <i class="fa fa-bath"></i></span>
+             </div>
+           </div>
+         </div>
+       </div>
       <!--<image-loader [src]="listing?.thumbnail"
         [default]="'https://picsum.photos/300/300/?random='+ listing?.index"
       >

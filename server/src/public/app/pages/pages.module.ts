@@ -4,6 +4,7 @@ import { PagesComponent } from './pages.component';
 import { PagesRoutingModule } from './pages-routing.module';
 import { ThemeModule } from '../@theme/theme.module';
 import { HomeComponent } from './home/home.component';
+import { MapPoint } from './home/point/point';
 import { RealtimeGeoqueryComponent } from './realtime-geoquery/realtime-geoquery.component';
 import { UiScrollModule } from 'ngx-ui-scroll';
 
@@ -14,7 +15,8 @@ import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 const PAGES_COMPONENTS = [
   PagesComponent,
   HomeComponent,
-  RealtimeGeoqueryComponent
+  RealtimeGeoqueryComponent,
+  MapPoint
 ];
 
 @NgModule({

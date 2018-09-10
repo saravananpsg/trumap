@@ -1,14 +1,15 @@
-<div class="listing-component" >
+<div class="listing-component" (swipeup)="swipe($event)" (swipeleft)="swipe($event)">
   <div *ngIf="truListings.truData | async; let truData">
-    <!--<div class="listing-filter-holder d-none d-md-block" [ngClass]="{'selected': (!!selectedListing)}">-->
-    <div class="listing-filter-holder"
+    <div class="listing-filter-holder d-none d-md-block"
       [ngClass]="{'selected': (!!selectedListing)}">
+    <!--<div class="listing-filter-holder"
+      [ngClass]="{'selected': (!!selectedListing)}">-->
       <ngx-listing-filter [count]="truData?.total_count"
         [isLoading]="truData?.isLoading"
         (onSelectFilter)="onSelectFilter($event)">
       </ngx-listing-filter>
     </div>
-    <div class="listing-holder flex">
+    <div class="listing-holder flex" >
         <virtual-scroll *ngIf="truData?.data?.length > 0"
           [horizontal]="true"
           [items]="truData?.data"
@@ -43,6 +44,11 @@
           class="flex flex-align-center flex-justify-center listing-status-bar">
           <label>Loading...</label>
         </div>
+      </div>
+      <div class="listing-component-footer flex flex-align-center
+        flex-justify-around d-md-none">
+        <button class="btn btn-secondary btn-sm"> Listings</button>
+        <button class="btn btn-secondary btn-sm"> My Places </button>
       </div>
   </div>
 </div>

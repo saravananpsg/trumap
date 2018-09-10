@@ -9,6 +9,8 @@ import { TruListings } from '../../providers/listings/tru.listings';
 import { NGXLogger } from 'ngx-logger';
 import { Legends } from '../../@theme/components';
 import * as alertify from 'alertify.js';
+import { BreakpointObserver } from '@angular/cdk/layout';
+
 const TRU_LISTING = 'trulisting';
 const iconMap: any = Legends.reduce((accumulator, legend) => {
   accumulator[legend.value] = legend;
@@ -52,6 +54,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   geo = geofirex.init(firebaseApp);
   points: Observable<any>;
   radius = new BehaviorSubject(0.5);
+  innerWidth = 0;
   selectedPoint: GeoJSON.Feature<GeoJSON.Point> | null;
   mapProperty = {
     lat: 1.352105,
@@ -62,7 +65,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   geoSources = [];
 
   constructor(private listingsService: Listings, private truListings: TruListings,
-    private logger: NGXLogger) {
+    private logger: NGXLogger, private breakpointObserver: BreakpointObserver) {
 
     this.listingsService.getDataNotification().subscribe((listingType) => {
       if( !listingType ) return;
@@ -132,6 +135,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         },
         properties: {
           title: listing.name,
+          ...listing,
           description: `<br><h6>${listing.name || listing.property_name ||
             listing.description || 'Unknown'}</h6>`,
           icon: (iconMap[listingType]) ? iconMap[listingType].icon : 'castle',
@@ -159,6 +163,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     (!isGeoSourceAlreadyAvailable) ?
       this.geoSources = this.geoSources.concat([source]) : null;
+    this.logger.debug('HomeComponent:GeoSource', this.geoSources);
+
   }
 
   initMapListingsLayer() {
@@ -244,6 +250,30 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onClick(evt: MapMouseEvent) {
     this.selectedPoint = (<any>evt).features[0];
+    console.log('Selected Point:', this.selectedPoint);
+  }
+
+  onSelectListing(selectedListing) {
+    // TBD: get Selected Point
+    const isSmallScreen = this.breakpointObserver
+      .isMatched('(max-width: 767.98px)');
+
+    if (!selectedListing || !isSmallScreen) return;
+    this.selectedPoint = null;
+    for(let index = 0; index < this.geoSources.length; index++) {
+      if(this.geoSources[index].id === TRU_LISTING) {
+        const features = this.geoSources[index].listings.features;
+        for (let listingIndex = 0; listingIndex < features.length; listingIndex++ ) {
+          if (features[listingIndex].properties.id_hash === selectedListing.id_hash) {
+            this.selectedPoint = features[listingIndex];
+            // console.log('Selected Point:', this.selectedPoint);
+            this.mapbox.mapInstance.setCenter([selectedListing.lng,selectedListing.lat]);
+            break;
+          }
+        }
+        // console.log('GEO SOURCES ITERATOR');
+      }
+    }
   }
 
   changeMapLayers(legendFilter: any) {
@@ -289,4 +319,5 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log('MapLoadEvent:', event);
     this.map = event;
   }
+
 }

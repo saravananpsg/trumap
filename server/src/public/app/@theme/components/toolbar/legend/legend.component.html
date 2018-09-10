@@ -1,6 +1,15 @@
+
+<div class="row  d-md-none marker-row">
+  <div class="col flex flex-justify-end">
+    <button class="btn btn-secondary btn-icon btn-marker"
+      (click)="showDropdown = !showDropdown">
+      <i class="fa fa-map-marker"></i>
+    </button>
+  </div>
+</div>
 <div class="legend-component">
-  <div class="dropdown" [ngClass]="{'show': showDropdown}">
-    <button class="btn btn-secondary btn-block"
+  <div class="dropdown" [ngClass]="{'show': showDropdown}" >
+    <button class="btn btn-secondary btn-block d-none d-md-block"
       type="button" (click)="showDropdown = !showDropdown">
       Show Legend
     </button>

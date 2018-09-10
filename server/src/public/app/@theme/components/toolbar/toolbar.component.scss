@@ -118,6 +118,14 @@ $dropdownItemColor: #241D52;
         border-radius: 0;
       }
     }
+    @media (max-width: 767.98px) {
+      .presets-bar {
+        border: 0;
+      }
+      .chat-bar {
+        padding-left: 9.5px;
+      }
+    }
 
   }
   @include nb-for-theme(default) {

@@ -1,6 +1,7 @@
 @import '../../../styles/themes';
 @import '../toolbar.component.scss';
 @include nb-install-component() {
+
   .dropdown {
     .dropdown-holder {
       max-height: 16rem;
@@ -17,6 +18,18 @@
       }
     }
   }
+  .marker-row {
+    padding: 0 10px;
+    .btn-marker {
+      margin-bottom: 10px;
+      padding: 15px;
+      background: #fff;
+      color: #000;
+      &:hover {
+        background: #f8f8f8;
+      }
+    }
+  }
 
   button {
     border: 0;
@@ -25,5 +38,18 @@
   }
   @include button-shared();
   @include dropdown-shared();
+
+  @media (max-width: 767.98px) {
+    .legend-component {
+      .dropdown {
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 14px;
+        .dropdown-menu {
+          width: 210px;
+        }
+      }
+    }
+  }
 
 }

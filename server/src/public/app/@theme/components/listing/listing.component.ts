@@ -24,6 +24,7 @@ const DEFAULT_FILTER = {
 })
 export class ListingComponent implements AfterViewInit, OnDestroy {
   @Input('mapProperty') mapProperty: any;
+  @Output() onSelectListing: EventEmitter<any> = new EventEmitter<any>();
   protected listings: any = [];
   protected listingObj: Observable<any>;
   protected loading = false;
@@ -116,7 +117,12 @@ export class ListingComponent implements AfterViewInit, OnDestroy {
         (listing.index === this.selectedListing.index))
       ? null : listing;
     (this.selectedListing) ? this.selectToUnselect = false : null;
+    this.onSelectListing.emit(this.selectedListing);
     this.logger.debug('SELECT LISTING:', listing);
+  }
+
+  protected swipe(ev: any) {
+    console.log('SwipeEvent:', ev);
   }
 
   @HostListener('click',['$event'])
@@ -130,4 +136,6 @@ export class ListingComponent implements AfterViewInit, OnDestroy {
       }, 700)
     }
   }
+
+
 }

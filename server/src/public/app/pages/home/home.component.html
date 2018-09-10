@@ -99,9 +99,7 @@
     <mgl-popup
       *ngIf="selectedPoint"
       [lngLat]="selectedPoint.geometry?.coordinates">
-      <div class="flex flex-column flex-align-center"
-        [innerHTML]="selectedPoint.properties?.description">
-      </div>
+      <ngx-map-point [selectedPoint]="selectedPoint"></ngx-map-point>
     </mgl-popup>
   </mgl-map>
 
@@ -130,6 +128,7 @@
   </div>
   <div class="footer-toolbar">
     <ngx-listing  #listings (onAddListings)="addListings($event)"
+      (onSelectListing)="onSelectListing($event)"
       [mapProperty]="mapProperty"
     ></ngx-listing>
   </div>

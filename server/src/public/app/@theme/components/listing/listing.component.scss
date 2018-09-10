@@ -1,16 +1,16 @@
 @import '../../styles/themes';
 @include nb-install-component() {
-  .listing-component {
-    z-index: 2;
-    position: relative;
+  @media (max-width: 767.98px) {
+    .listing-component {
+      background: #fff;
+      z-index: 2;
+      position: relative;
+      overflow-x: hidden;
+    }
     .listing-filter-holder {
       display: flex;
       width: 100%;
       background-color: #fff;
-      &.selected {
-        position: absolute;
-        bottom: 252px;
-      }
     }
     .listing-status-bar {
       width: 100%;
@@ -24,70 +24,107 @@
         min-height: 136px;
         overflow-y: hidden !important;
         background-color: #fff;
-        &.mouseover {
-          transition: height 600ms ease-out;
-        }
-        &.select-unselect-mouseover {
-          transition: height 0ms ease-out;
-        }
-        &.mouseleave {
-          transition: height 600ms ease-out;
-        }
+      }
+    }
+    .listing-component-footer {
+      padding: 5px 0;
+      .btn.btn-sm {
+        line-height: 1;
+      }
+    }
+  }
+  @media (min-width: 768px) {
+
+    .listing-component {
+      z-index: 2;
+      position: relative;
+      .listing-filter-holder {
+        display: flex !important;
+        overflow-x: auto;
+        width: 100%;
+        background-color: #fff;
         &.selected {
-          height: 100vh !important;
-          max-height: 100vh !important;
-          .inline {
-            align-self: flex-end;
-          }
-          background-color: transparent;
+          position: absolute;
+          bottom: 252px;
         }
+      }
+      .listing-status-bar {
+        width: 100%;
+        background-color: #fff;
+      }
+      .listing-holder {
+        min-height: 136px;
+        virtual-scroll {
+          width: 100%;
+          height: 136px;
+          min-height: 136px;
+          overflow-y: hidden !important;
+          background-color: #fff;
+          &.mouseover {
+            transition: height 600ms ease-out;
+          }
+          &.select-unselect-mouseover {
+            transition: height 0ms ease-out;
+          }
+          &.mouseleave {
+            transition: height 600ms ease-out;
+          }
+          &.selected {
+            height: 100vh !important;
+            max-height: 100vh !important;
+            .inline {
+              align-self: flex-end;
+            }
+            background-color: transparent;
+          }
 
-        &:hover, &.selected {
-          height: 252px;
-          max-height: 252px;
-          ::ng-deep .listing-tile {
+          &:hover, &.selected {
             height: 252px;
-            background: #fff;
-            background-color: rgba(255,255, 255, 0.9);
-            transition: height 200ms ease-out;
-            &.selected {
-              height: 93vh;
-              background: transparent;
-              transition: height 600ms ease-out;
-            }
-            .listing-short-info {
-              .listing-header {
-                bottom: 0;
+            max-height: 252px;
+            ::ng-deep .listing-tile {
+              height: 252px;
+              background: #fff;
+              background-color: rgba(255,255, 255, 0.9);
+              transition: height 200ms ease-out;
+              &.selected {
+                height: 93vh;
+                background: transparent;
+                transition: height 600ms ease-out;
               }
+              .listing-short-info {
+                .listing-header {
+                  bottom: 0;
+                }
 
-              img {
-                height: 154px;
-                width: 100%;
-              }
+                img {
+                  height: 154px;
+                  width: 100%;
+                }
 
-              .listing-footer {
-                top: 0;
-                bottom: unset;
+                .listing-footer {
+                  top: 0;
+                  bottom: unset;
+                }
               }
-            }
-            .listing-medium-info {
-              visibility: visible;
+              .listing-medium-info {
+                visibility: visible;
+              }
             }
           }
-        }
-        &:hover {
+          &:hover {
+            &::-webkit-scrollbar {
+              display: block;
+              height: 6px;
+              width: 6px;
+            }
+          }
           &::-webkit-scrollbar {
-            display: block;
-            height: 6px;
-            width: 6px;
+            display: none;
+            height: 0px;
           }
-        }
-        &::-webkit-scrollbar {
-          display: none;
-          height: 0px;
-        }
-        &::-webkit-scrollbar-thumb {
-          background:  #555;
+          &::-webkit-scrollbar-thumb {
+            background:  #555;
+          }
         }
       }
     }

@@ -1,6 +1,9 @@
 @import '../../styles/themes';
 @include nb-install-component() {
   .chat-container {
+    .collapsed-window {
+      background-color: #fff;
+    }
     ::ng-deep button {
       background-color: #f8f8f8;
       border-color: #fff !important;
@@ -55,8 +58,8 @@
       &.active {
         visibility: visible;
         opacity: 1;
-        height: 300px;
-        max-height: 300px;
+        height: 50vh;
+        max-height: 70vh;
       }
     }
     .input-group-prepend {
@@ -74,6 +77,13 @@
           position: absolute;
           right: 10px;
         }
+      }
+    }
+  }
+  @media (max-width: 767.98px) {
+    .expanded-window-chat-area {
+      &.active {
+        height: 70vh !important;
       }
     }
   }

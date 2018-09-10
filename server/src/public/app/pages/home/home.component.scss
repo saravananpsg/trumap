@@ -8,6 +8,10 @@
     width: 100vw;
   }
 
+  .mapboxgl-popup-content {
+    padding: 0;
+  }
+
   .tools {
       z-index: 9999;
       position: absolute;
@@ -33,14 +37,25 @@
   .top-toolbar {
     width: 100%;
     padding: 0 20px;
-    position: absolute;
+    position: fixed;
     top: 20px;
     left: 0;
   }
 
   .footer-toolbar {
     width: 100%;
-    position: absolute;
+    position: fixed;
     bottom: 0;
+    z-index: 3;
+  }
+
+  @media (max-width: 767.98px) {
+    .top-toolbar {
+      padding: 0;
+      top: 0;
+      z-index: 4;
+    }
+    .footer-toolbar {
+    }
   }
 }
