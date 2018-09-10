@@ -11,6 +11,15 @@ import { CookieService } from 'ngx-cookie-service';
 
 import { environment } from '../environments/environment';
 
+import * as Hammer from 'hammerjs';
+import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+
+export class HammerConfig extends HammerGestureConfig {
+  overrides = <any>{
+    'swipe': { direction: Hammer.DIRECTION_ALL }
+  };
+}
+
 const socketConfig: SocketIoConfig = { url: environment.socket.serverUrl, options: {} };
 
 export const config = {
@@ -72,6 +81,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SocketIoModule.forRoot(socketConfig),
   ],
   providers: [
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: HammerConfig
+    },
     { provide: APP_BASE_HREF, useValue: '/' },
     { provide: HTTP_INTERCEPTORS, useClass: NbAuthJWTInterceptor, multi: true},
     Api,

@@ -3,6 +3,9 @@
 @include nb-install-component() {
   .map-point {
     min-width: 200px;
+    .amenities {
+      padding: 1rem;
+    }
     .point-header {
 
       background: #f8f8f8;

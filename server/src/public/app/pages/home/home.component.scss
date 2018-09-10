@@ -34,6 +34,7 @@
       }
   }
 
+
   .top-toolbar {
     width: 100%;
     padding: 0 20px;
@@ -43,6 +44,9 @@
   }
 
   .footer-toolbar {
+    .footer-slider {
+      display: none;
+    }
     width: 100%;
     position: fixed;
     bottom: 0;
@@ -56,6 +60,31 @@
       z-index: 4;
     }
     .footer-toolbar {
+      .listings-holder {
+        height: 0;
+        transition: all 600ms ease-out;
+        &.show {
+          height: 184px;
+        }
+      }
+      .footer-slider {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        height: 2rem;
+        background: #f8f8f8;
+        border-bottom: solid 1px #ccc;
+        .fa {
+          font-size: 2rem;
+          &.fa-sort-up {
+            margin-top: 10px;
+          }
+          &.fa-sort-down {
+            margin-bottom: 10px;
+          }
+        }
+
+      }
     }
   }
 }

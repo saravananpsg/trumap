@@ -319,5 +319,4 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log('MapLoadEvent:', event);
     this.map = event;
   }
-
 }

@@ -126,11 +126,18 @@
     <ngx-toolbar (onZoomSelected)="changeZoom($event)"
       (onLegendSelected)="changeMapLayers($event)"></ngx-toolbar>
   </div>
-  <div class="footer-toolbar">
-    <ngx-listing  #listings (onAddListings)="addListings($event)"
-      (onSelectListing)="onSelectListing($event)"
-      [mapProperty]="mapProperty"
-    ></ngx-listing>
-  </div>
+  <div class="footer-toolbar" >
+    <div class="footer-slider flex" (swipeup)="whenSwipeUp = true;"
+      (swipedown)="whenSwipeUp = false" (click)="whenSwipeUp = !whenSwipeUp"
+    >
+    <i class="fa fa-sort-up" *ngIf="!whenSwipeUp" ></i>
+    <i class="fa fa-sort-down" *ngIf="whenSwipeUp"></i>
 
+  </div>
+    <div class="listings-holder" [ngClass]="{'show': whenSwipeUp}">
+      <ngx-listing  #listings (onAddListings)="addListings($event)"
+        (onSelectListing)="onSelectListing($event)"
+        [mapProperty]="mapProperty"
+      ></ngx-listing>
+    </div>
 </div>
