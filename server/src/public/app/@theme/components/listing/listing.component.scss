@@ -40,7 +40,7 @@
       position: relative;
       .listing-filter-holder {
         display: flex !important;
-        overflow-x: auto;
+        overflow-x: visible;
         width: 100%;
         background-color: #fff;
         &.selected {
